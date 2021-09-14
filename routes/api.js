@@ -15,4 +15,11 @@ router.get('/', (req, res) => {
             });
 });
 
+// route to post to the server
+router.post('/save', (req, res) => {
+    res.json({
+        msg: 'Data received'
+    });
+});
+
 module.exports = router;
