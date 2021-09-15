@@ -17,9 +17,21 @@ router.get('/', (req, res) => {
 
 // route to post to the server
 router.post('/save', (req, res) => {
-    res.json({
-        msg: 'Data received'
-    });
+    const data = req.body;
+    const newObj = new SalesPost(data);
+
+    newObj.save(error => {
+        if (error) {
+            res.status(500).json({
+                msg: 'Internal Server Error'
+            });
+        }
+        else {
+            res.json({
+                msg: 'Data Received'
+            });
+        }
+    })
 });
 
 module.exports = router;
