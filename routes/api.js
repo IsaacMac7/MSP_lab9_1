@@ -19,19 +19,18 @@ router.get('/', (req, res) => {
 router.post('/save', (req, res) => {
     const data = req.body;
     const newObj = new SalesPost(data);
+    console.log('Body', req.body);
 
     newObj.save(error => {
         if (error) {
-            res.status(500).json({
-                msg: 'Internal Server Error'
-            });
+            res.status(500).json({msg: 'Internal Server Error'});
+            return;
+            
         }
-        else {
-            res.json({
+        return res.json({
                 msg: 'Data Received'
-            });
-        }
-    })
+        });  
+    });
 });
 
 module.exports = router;
