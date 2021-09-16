@@ -2,11 +2,32 @@ import React from 'react';
 import axios from 'axios';
 
 
+
 class App extends React.Component {
 
   state= {
     id: '',
-    name: ''
+    name: '',
+    posts: []
+  };
+
+  componentDidMount = () => {
+    this.getSalesPost();
+  };
+
+  getSalesPost = () => {
+    axios.get('http://localhost:8080/api')
+    .then((response) => {
+      const data = response.data;
+      this.setState({posts: data});
+      console.log('Data has been receieved');
+
+    })
+    .catch(() => {
+      alert('Error retrieving data');
+
+    });;
+    
   };
 
 
@@ -40,6 +61,9 @@ class App extends React.Component {
     })
     .then(() => {
       console.log('Data has been sent to the server');
+    
+
+      this.getSalesPost();
       
 
     })
@@ -47,6 +71,27 @@ class App extends React.Component {
       console.log('Internal server error');
 
     });;
+  };
+
+
+ 
+
+
+
+
+
+  displaySalesPost = (posts) => {
+
+    if (!posts.length) return null;
+
+    return posts.map((post, index) =>(
+
+      <div key={index} className="sales-post__display">
+        <h3>{post.id}</h3>
+        <p>{post.name}</p>
+      </div>
+
+    ));
   };
 
 
@@ -84,6 +129,11 @@ class App extends React.Component {
 
           <button>Submit</button>
         </form>
+
+
+        <div className="sales-">
+          {this.displaySalesPost(this.state.posts)}
+        </div>
 
       </div>
 
