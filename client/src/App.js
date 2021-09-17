@@ -8,18 +8,21 @@ function App() {
   const [stockId, setStockId] = useState(0);
   const [stockName, setStockName] = useState("");
 
-  const[newStockName, setNewStockName] = useState("");
-
   const [stockList, setStockList] = useState([]);
 
   useEffect(()=>{
 
-    axios.get("http://localhost:8080/api/read").then((response)=>{
+    axios.get('http://localhost:8080/api/read').then((response)=>{
       setStockList(response.data);
+    })
 
-    });
+  }, [stockList]) 
 
-  }, []);
+  const[newStockName, setNewStockName] = useState("");
+
+
+
+
   
 
   const addToList = () => {
@@ -61,23 +64,21 @@ function App() {
 
       {stockList.map((val,key)=> {
 
+        return(
+          <div key={key} className="stock">
+            <h1> {val.stockId}</h1>
+            <h1> {val.stockName}</h1>
+            <input type="text" placeholder="New Stock Name..." 
+            onChange={(event) => {setNewStockName(event.target.value)}}/>
+            <button onClick={() => updateStock(val._id)}> Update </button>
+            <button onClick={() => deleteStock(val._id)}> Delete </button>
+          </div>
+        );
 
-      return(
-        <div key={key} className="food">
-          <h1> {val.stockId}</h1>
-          <h1> {val.stockName}</h1>
-          <input type="text" placeholder="New Food Name..." 
-          onChange={(event) => {setNewStockName(event.target.value)}}/>
-          <button onClick={() => updateStock(val._id)}> Update </button>
-          <button onClick={() => deleteStock(val._id)}> Delete </button>
-        </div>
-      );
+
+      })}
 
 
-    })};
-
-    
-       
     </div>
 
     
