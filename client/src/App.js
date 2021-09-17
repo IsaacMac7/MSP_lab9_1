@@ -1,147 +1,87 @@
-import React from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import './App.css';
 
 
+function App() {
 
-class App extends React.Component {
+  const [stockId, setStockId] = useState(0);
+  const [stockName, setStockName] = useState("");
 
-  state= {
-    id: '',
-    name: '',
-    posts: []
-  };
+  const[newStockName, setNewStockName] = useState("");
 
-  componentDidMount = () => {
-    this.getSalesPost();
-  };
+  const [stockList, setStockList] = useState([]);
 
-  getSalesPost = () => {
-    axios.get('http://localhost:8080/api')
-    .then((response) => {
-      const data = response.data;
-      this.setState({posts: data});
-      console.log('Data has been receieved');
+  useEffect(()=>{
 
-    })
-    .catch(() => {
-      alert('Error retrieving data');
+    axios.get("http://localhost:8080/api/read").then((response)=>{
+      setStockList(response.data);
 
-    });;
-    
-  };
+    });
 
+  }, []);
+  
 
-
-
-  handleChange = ({target}) => {
-    const{name, value} = target;
-    this.setState({
-      [name] : value
-
+  const addToList = () => {
+    axios.post("http://localhost:8080/api/", {
+      stockId: stockId, 
+      stockName: stockName,
     });
 
   };
 
 
-  // this allows react forms to send requests to the server
-  submit = (event) => {
-    event.preventDefault();
-
-    const payload = {
-      id: this.state.id,
-      name: this.state.name
-    };
-
- 
-
-    axios({
-      url: 'http://localhost:8080/api/save',
-      method: 'POST',
-      data: payload
-    })
-    .then(() => {
-      console.log('Data has been sent to the server');
-    
-
-      this.getSalesPost();
-      
-
-    })
-    .catch(() => {
-      console.log('Internal server error');
-
-    });;
-  };
-
-
- 
-
-
-
-
-
-  displaySalesPost = (posts) => {
-
-    if (!posts.length) return null;
-
-    return posts.map((post, index) =>(
-
-      <div key={index} className="sales-post__display">
-        <h3>{post.id}</h3>
-        <p>{post.name}</p>
-      </div>
-
-    ));
+  const updateStock = (id) => {
+    axios.put("http://localhost:8080/api/update", {
+      id: id, 
+      newStockName: newStockName,
+    });
   };
 
 
 
+  const deleteStock = (id) => {
+    axios.delete(`http://localhost:8080/api/delete/${id}`);
+  };
 
-  render() {
-    console.log('State: ', this.state);
+  
 
-    
-    return (
-      <div>
-        <h2>PHP React App</h2>
-        <form onSubmit={this.submit}>
-          <div className="form-input">
-            <input 
-              type="text"
-              placeholder="title"
-              name="id"
-              defaultValue={this.state.id}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div className="form-input">
-            <textarea 
-              name="name" 
-              placeholder="body"
-              cols="30" 
-              rows="10" 
-              defaultValue={this.state.name}
-              onChange={this.handleChange}>
-
-            </textarea>
-          </div>
-          
-
-          <button>Submit</button>
-        </form>
+  return (
+    <div className="App">
+      <h1> PHARMACY </h1>
+   
+      <label> Stock ID: </label>
+      <input type="number" onChange={(event) => {setStockId(event.target.value)}} />
+      <label> Stock Name: </label>
+      <input type="text" onChange={(event) => {setStockName(event.target.value)}} />
+      <button onClick={addToList}> Add Stock </button>
 
 
-        <div className="sales-">
-          {this.displaySalesPost(this.state.posts)}
+      <h1> Stock List </h1>
+
+      {stockList.map((val,key)=> {
+
+
+      return(
+        <div key={key} className="food">
+          <h1> {val.stockId}</h1>
+          <h1> {val.stockName}</h1>
+          <input type="text" placeholder="New Food Name..." 
+          onChange={(event) => {setNewStockName(event.target.value)}}/>
+          <button onClick={() => updateStock(val._id)}> Update </button>
+          <button onClick={() => deleteStock(val._id)}> Delete </button>
         </div>
+      );
 
-      </div>
 
-        
+    })};
 
-     
-    );
-  }
+    
+       
+    </div>
+
+    
+  );
 }
 
 export default App;

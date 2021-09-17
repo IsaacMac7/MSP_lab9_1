@@ -1,36 +1,72 @@
+
 const express = require('express');
 const router = express.Router();
 
-const SalesPost = require('../models/SalesPost');
 
-// Routes
-router.get('/', (req, res) => {
-    SalesPost.find({ })
-            .then( (data) => {
-                console.log('Data: ', data);
-                res.json(data);
-            })
-            .catch((error) => {
-                console.log('Error: ', error);
-            });
-});
+const StockModel = require('../models/StockItem');
 
-// route to post to the server
-router.post('/save', (req, res) => {
-    const data = req.body;
-    const newObj = new SalesPost(data);
-    console.log('Body', req.body);
 
-    newObj.save(error => {
-        if (error) {
-            res.status(500).json({msg: 'Internal Server Error'});
-            return;
-            
+// GET
+router.get('/read', async (req,res)=>{
+    StockModel.find({}, (err, result) => {
+        if (err) {
+            res.send(err);
         }
-        return res.json({
-                msg: 'Data Received'
-        });  
+
+        res.send(result);
+
     });
+   
 });
+
+// POST
+router.post('/', async (req,res)=>{
+    const stockId = req.body.stockId;
+    const stockName = req.body.stockName;
+    const stock = new StockModel({ stockId: stockId, stockName: stockName});
+
+    try {
+        await stock.save();
+
+    } catch(err) {
+        console.log(err);
+    }
+
+});
+
+
+router.put('/update', async (req,res)=>{
+    const newStockName = req.body.newStockName;
+    const id = req.body.id;
+    
+    try {
+        await StockModel.findById(id, (err,updatedStock)=>{
+
+            updatedStock.stockName = stockName;
+            updatedStock.save();
+            res.send("update");
+
+        });
+
+    } catch(err) {
+        console.log(err);
+    }
+
+});
+
+router.delete("/delete/:id", async(req,res)=>{
+
+    const id = req.params.id;
+
+    await StockModel.findByIdAndRemove(id).exec();
+    res.send('deleted');
+
+
+});
+
 
 module.exports = router;
+
+
+
+

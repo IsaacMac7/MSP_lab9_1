@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const path = require('path');
 const cors= require('cors');
-
 const app = express();
+
 const PORT = process.env.PORT || 8080;
 const MONGODB_URI = 'mongodb+srv://msp_dev:msp_dev_pssw@phpapp.emq6r.mongodb.net/phpApp?retryWrites=true&w=majority';
 
