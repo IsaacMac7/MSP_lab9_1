@@ -42,7 +42,7 @@ router.put('/update', async (req,res)=>{
     try {
         await StockModel.findById(id, (err,updatedStock)=>{
 
-            updatedStock.stockName = stockName;
+            updatedStock.stockName = newStockName;
             updatedStock.save();
             res.send("update");
 
