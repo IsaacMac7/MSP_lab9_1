@@ -1,88 +1,40 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import './App.css';
-
-
-function App() {
-
-  const [stockId, setStockId] = useState(0);
-  const [stockName, setStockName] = useState("");
-
-  const [stockList, setStockList] = useState([]);
-
-  useEffect(()=>{
-
-    axios.get('http://localhost:8080/api/read').then((response)=>{
-      setStockList(response.data);
-    })
-
-  }, [stockList]) 
-
-  const[newStockName, setNewStockName] = useState("");
+import Home from "./Home";
+import StockForm from "./StockForm";
+import StockDetails from './StockDetails';
+import NavBar from './Navbar';
+import  {Route, Link } from "react-router-dom";
 
 
 
 
-  
+class App extends React.Component {
 
-  const addToList = () => {
-    axios.post("http://localhost:8080/api/", {
-      stockId: stockId, 
-      stockName: stockName,
-    });
+ 
+  render() {
 
-  };
+    // Temporary Navigation Bar
+ 
 
-
-  const updateStock = (id) => {
-    axios.put("http://localhost:8080/api/update", {
-      id: id, 
-      newStockName: newStockName,
-    });
-  };
-
-
-
-  const deleteStock = (id) => {
-    axios.delete(`http://localhost:8080/api/delete/${id}`);
-  };
-
-  
-
-  return (
-    <div className="App">
-      <h1> PHARMACY </h1>
-   
-      <label> Stock ID: </label>
-      <input type="number" onChange={(event) => {setStockId(event.target.value)}} />
-      <label> Stock Name: </label>
-      <input type="text" onChange={(event) => {setStockName(event.target.value)}} />
-      <button onClick={addToList}> Add Stock </button>
-
-
-      <h1> Stock List </h1>
-
-      {stockList.map((val,key)=> {
-
-        return(
-          <div key={key} className="stock">
-            <h1> {val.stockId}</h1>
-            <h1> {val.stockName}</h1>
-            <input type="text" placeholder="New Stock Name..." 
-            onChange={(event) => {setNewStockName(event.target.value)}}/>
-            <button onClick={() => updateStock(val._id)}> Update </button>
-            <button onClick={() => deleteStock(val._id)}> Delete </button>
-          </div>
-        );
-
-
-      })}
-
-
-    </div>
-
+    return (
+      <div>
+        <h2>PHP React App</h2>
+        <NavBar />
+        <Route exact path="/" component={Home} /> 
+        <Route exact path="/stockform" component={StockForm} />
+        <Route exact path="/stockdetails" component={StockDetails} />
     
-  );
+
+
+      </div>
+
+        
+
+     
+    );
+  }
 }
 
 export default App;
