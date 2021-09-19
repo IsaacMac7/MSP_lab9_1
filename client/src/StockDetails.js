@@ -18,7 +18,7 @@ function StockDetails() {
       setStockList(response.data);
     })
 
-  }, [stockList]) 
+  }, []) 
 
   const[newStockName, setNewStockName] = useState("");
 
@@ -52,8 +52,11 @@ function StockDetails() {
           <div key={key} className="stock">
             <h1> {val.stockId}</h1>
             <h1> {val.stockName}</h1>
-            <input type="text" placeholder="New Stock Name..." 
-            onChange={(event) => {setNewStockName(event.target.value)}}/>
+            <h1> {val.stockInfo}</h1>
+            <h1> {val.stockQuantity}</h1>
+            <h1> {val.stockCost} </h1>
+            <h1> {val.stockRetailPrice} </h1>
+      
             <button onClick={() => updateStock(val._id)}> Update </button>
             <button onClick={() => deleteStock(val._id)}> Delete </button>
           </div>

@@ -11,6 +11,25 @@ const StockSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    
+    stockInfo : {
+        type: String,
+        required: true,
+    },
+
+    stockQuantity: {
+        type: Number,
+        required: true,
+    },
+
+    stockCost: {
+        type: Number,
+        required: true,
+    },
+    stockRetailPrice: {
+        type: Number,
+        required: true,
+    }
 
  
 

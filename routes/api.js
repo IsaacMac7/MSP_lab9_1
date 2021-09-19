@@ -23,7 +23,18 @@ router.get('/read', async (req,res)=>{
 router.post('/', async (req,res)=>{
     const stockId = req.body.stockId;
     const stockName = req.body.stockName;
-    const stock = new StockModel({ stockId: stockId, stockName: stockName});
+    const stockInfo = req.body.stockInfo;
+    const stockQuantity = req.body.stockQuantity;
+    const stockCost = req.body.stockCost;
+    const stockRetailPrice = req.body.stockRetailPrice;
+    const stock = new StockModel({ 
+        stockId: stockId, 
+        stockName: stockName,
+        stockInfo: stockInfo,
+        stockQuantity: stockQuantity,
+        stockCost: stockCost,
+        stockRetailPrice: stockRetailPrice,
+    });
 
     try {
         await stock.save();
