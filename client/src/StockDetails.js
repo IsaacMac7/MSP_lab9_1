@@ -20,12 +20,12 @@ function StockDetails() {
   const[newStockName, setNewStockName] = useState("");
 
   const updateStock = (id) => {
-    /*
+    
     axios.put("http://localhost:8080/api/update", {
       id: id, 
       newStockName: newStockName,
     });
-    */
+    
     
   };
 

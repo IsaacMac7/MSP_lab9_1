@@ -8,6 +8,8 @@ function NavBar() {
             <li><Link to="/">Home</Link></li>
             <li><Link to="/stockform">Stock Form</Link></li>
             <li><Link to="/stockdetails">Stock Details</Link></li>
+            <li><Link to="/salesform">Sales Form</Link></li>
+            <li><Link to="/salesdetails">Sales Details</Link></li>
   
         </ul>
 

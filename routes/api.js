@@ -69,7 +69,7 @@ router.put('/update', async (req,res)=>{
         )
         await stock.save();
         res.send("update");
-        /*
+        
         await StockModel.findById(id, (err,updatedStock)=>{
 
             updatedStock.stockName = newStockName;
@@ -80,7 +80,7 @@ router.put('/update', async (req,res)=>{
             updatedStock.save();
             res.send("update");
         });
-        */
+        
 
     } catch(err) {
         console.log(err);
