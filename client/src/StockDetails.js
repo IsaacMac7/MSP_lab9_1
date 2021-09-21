@@ -14,7 +14,8 @@ function StockDetails() {
     axios.get('http://localhost:8080/api/read').then((response)=>{
       setStockList(response.data);
     })
-  }, []) 
+
+  }, [stockList]) 
 
   const[newStockName, setNewStockName] = useState("");
 

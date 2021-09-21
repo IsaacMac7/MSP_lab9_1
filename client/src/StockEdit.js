@@ -3,7 +3,6 @@ import axios from "axios";
 import './App.css';
 import { useLocation } from "react-router-dom";
 import StockDetails from "./StockDetails";
-import { Router } from "express";
 import  {Route, useHistory} from "react-router-dom";
 
 function StockEdit() {
@@ -14,7 +13,7 @@ function StockEdit() {
   const [stockCost, setStockCost] = useState(0);
   const [stockRetailPrice, setStockRetailPrice] = useState(0);
 
-  let history = useHistory();
+  const history = useHistory();
   const location = useLocation();
 
   useEffect(() => {
