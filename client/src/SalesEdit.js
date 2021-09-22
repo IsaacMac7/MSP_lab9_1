@@ -8,7 +8,7 @@ import  {Route, useHistory} from "react-router-dom";
 function SalesEdit() {
     const [stockId, setStockID] = useState(0);
     const [stockName, setStockName] = useState("");
-    const [stockAmt, setStockAmt] = useState(0);
+    const [stockAmt, setStockAmt] = useState("");
     const [stockDate, setDate] = useState("");
 
   const history = useHistory();
@@ -35,7 +35,7 @@ function SalesEdit() {
     }
     finally {
         <Route exact path="/salesdetails" components={SalesDetails} />
-        history.push("/salesrecords");
+        history.push("/salesdetails");
     }
     
 
@@ -50,10 +50,10 @@ function SalesEdit() {
       <input type="number" value={location.state.stockId} />
       <label> Stock Name: </label>
       <input type="text" defaultValue={location.state.stockName} onChange={(event) => {setStockName(event.target.value)}} />
+      <label> Sale Date: </label>
+      <input type="date" defaultValue={location.state.stockDate} onChange={(event) => {setDate(event.target.value)}} />
       <label> Amount Sold: </label>
       <input type="text" defaultValue={location.state.stockAmt} onChange={(event) => {setStockAmt(event.target.value)}} />
-      <label> Sale Date: </label>
-      <input type="text" defaultValue={location.state.stockDate} onChange={(event) => {setDate(event.target.value)}} />
       <button onClick={editList}> Update Stock </button>
     </div>
   );

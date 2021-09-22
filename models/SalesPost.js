@@ -17,7 +17,7 @@ const SalesItemSchema = new mongoose.Schema({
     },
     stockDate: {
         type: String,
-        default : Date.now()
+        default : Date.now() + 7*24*60*60*1000
     }
 
  

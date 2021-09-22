@@ -21,7 +21,7 @@ function SalesDetails() {
 
   const updateSales = (id) => {
     
-    axios.put("http://localhost:8080/salesapi/update", {
+    axios.put('http://localhost:8080/salesapi/salesupdate', {
       id: id, 
       newSalesName: newSalesName,
     });
@@ -30,7 +30,7 @@ function SalesDetails() {
   };
 
   const deleteStock = (id) => {
-    axios.delete(`http://localhost:8080/salesapi/delete/${id}`);
+    axios.delete(`http://localhost:8080/salesapi/salesdelete/${id}`);
   };
 
   return (
@@ -44,7 +44,7 @@ function SalesDetails() {
             <h1> {val.stockDate}</h1>
             <h1> {val.stockAmt}</h1>
       
-            <button onClick={() => {history.push({pathname: "/update", 
+            <button onClick={() => {history.push({pathname: "/salesupdate", 
               state: {
                 stockId: val.stockId,
                 stockName: val.stockName,

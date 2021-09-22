@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 import './App.css';
 import Home from "./Home";
 import StockForm from "./StockForm";
 import StockDetails from './StockDetails';
 import NavBar from './Navbar';
-import  {Route, Link } from "react-router-dom";
+import {Route} from "react-router-dom";
 import StockEdit from "./StockEdit";
 import SalesForm from "./SalesForm";
 import SalesDetails from "./SalesDetails";
