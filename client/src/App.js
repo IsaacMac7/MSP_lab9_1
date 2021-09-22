@@ -29,7 +29,7 @@ class App extends React.Component {
         <Route exact path="/salesform" component={SalesForm} />
         <Route exact path="/salesdetails" component={SalesDetails} />        
         <Route exact path="/update" component={() => <StockEdit/>} />
-        <Route exact path="/updatesales" component={() => <SalesEdit/>} />
+        <Route exact path="/salesupdate" component={() => <SalesEdit/>} />
 
       </div>
 

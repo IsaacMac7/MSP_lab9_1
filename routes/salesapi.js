@@ -40,8 +40,8 @@ router.post('/', async (req,res)=>{
 
 });
 
-/*
-router.put('/update', async (req,res)=>{
+
+router.put('/salesupdate', async (req,res)=>{
     const newStockName = req.body.newStockName;
     const newStockDate = req.body.newStockDate;
     const newStockAmt = req.body.newStockAmt;
@@ -84,7 +84,7 @@ router.delete("/delete/:id", async(req,res)=>{
 
 
 });
-*/
+
 
 module.exports = router;
 
