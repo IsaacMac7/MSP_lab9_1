@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 8080;
 const MONGODB_URI = 'mongodb+srv://msp_dev:msp_dev_pssw@phpapp.emq6r.mongodb.net/phpApp?retryWrites=true&w=majority';
 
 const routes = require('./routes/api');
+const salesroutes = require('./routes/salesapi');
 
 // connects to mongodb
 mongoose.connect(MONGODB_URI || 'mongodb://localhost/phpApp', {
@@ -31,5 +32,6 @@ app.use(cors());
 // Handles HTTP requests
 app.use(morgan('tiny'));
 app.use('/api', routes);
+app.use('/salesapi', salesroutes);
 
 app.listen(PORT, console.log(`Server is starting at ${PORT}`));

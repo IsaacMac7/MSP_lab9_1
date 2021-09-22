@@ -79,7 +79,7 @@ router.delete("/delete/:id", async(req,res)=>{
 
     const id = req.params.id;
 
-    await StockModel.findByIdAndRemove(id).exec();
+    await SalesModel.findByIdAndRemove(id).exec();
     res.send('deleted');
 
 
