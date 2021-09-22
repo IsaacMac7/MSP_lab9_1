@@ -45,9 +45,10 @@ router.put('/salesupdate', async (req,res)=>{
     const newStockName = req.body.newStockName;
     const newStockDate = req.body.newStockDate;
     const newStockAmt = req.body.newStockAmt;
+    const stockId = req.body.stockId;
 
     try {
-        const stock = await StockModel.findOne({stockId});
+        const stock = await SalesModel.findOne({stockId});
 
         stock.overwrite(
             {
@@ -60,7 +61,8 @@ router.put('/salesupdate', async (req,res)=>{
         await stock.save();
         res.send("update");
         
-        await StockModel.findById(id, (err,updatedStock)=>{
+        await SalesModel.findById(id, (err,updatedStock)=>{
+            updatedStock.stockId = stockId;
             updatedStock.stockName = newStockName;
             updatedStock.stockDate = newStockDate;
             updatedStock.stockAmt = newStockAmt;
