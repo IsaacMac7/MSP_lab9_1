@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import MaterialTable from 'material-table';
 import './App.css';
-import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 
 

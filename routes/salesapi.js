@@ -57,7 +57,7 @@ router.put('/salesupdate', async (req,res)=>{
                 stockAmt: newStockAmt,
             }
         )
-        await Stock.save();
+        await stock.save();
         res.send("update");
         
         await StockModel.findById(id, (err,updatedStock)=>{

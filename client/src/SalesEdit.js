@@ -8,7 +8,7 @@ import  {Route, useHistory} from "react-router-dom";
 function SalesEdit() {
     const [stockId, setStockID] = useState(0);
     const [stockName, setStockName] = useState("");
-    const [stockAmt, setStockAmt] = useState("");
+    const [stockAmt, setStockAmt] = useState(0);
     const [stockDate, setDate] = useState("");
 
   const history = useHistory();
