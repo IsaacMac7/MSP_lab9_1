@@ -47,14 +47,14 @@ function StockDetails() {
             <h1> {val.stockRetailPrice} </h1>
       
             <button onClick={() => {history.push({pathname: "/update", 
-                                                  state: {
-                                                    stockId: val.stockId,
-                                                    stockName: val.stockName,
-                                                    stockInfo: val.stockInfo,
-                                                    stockQuantity: val.stockQuantity,
-                                                    stockCost: val.stockCost,
-                                                    stockRetailPrice: val.stockRetailPrice
-                                                  }})}}> Update </button>
+              state: {
+                stockId: val.stockId,
+                stockName: val.stockName,
+                stockInfo: val.stockInfo,
+                stockQuantity: val.stockQuantity,
+                stockCost: val.stockCost,
+                stockRetailPrice: val.stockRetailPrice
+              }})}}> Update </button>
             <button onClick={() => deleteStock(val._id)}> Delete </button>
           </div>
         );

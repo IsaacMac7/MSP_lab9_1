@@ -5,20 +5,20 @@ import './App.css';
 
 function App() {
 
-  const [salesId, setsalesId] = useState(0);
-  const [salesName, setsalesName] = useState("");
-  const [salesDate, setsalesDate] = useState("");
-  const [salesQuantity, setsalesQuantity] = useState(0);
+  const [stockId, setstockId] = useState(0);
+  const [stockName, setstockName] = useState("");
+  const [stockDate, setstockDate] = useState("");
+  const [stockAmt, setstockAmt] = useState(0);
 
 
 
   
   const addToList = () => {
-    axios.post("http://localhost:8080/api/", {
-      salesId: salesId, 
-      salesName: salesName,
-      salesDate: salesDate,
-      salesQuantity: salesQuantity,
+    axios.post("http://localhost:8080/salesapi/", {
+      stockId: stockId, 
+      stockName: stockName,
+      stockDate: stockDate,
+      stockAmt: stockAmt,
     });
 
   };
@@ -29,13 +29,13 @@ function App() {
       <h1> ADD SALES TRANSACTION </h1>
    
       <label> Stock ID: </label>
-      <input type="number" onChange={(event) => {setsalesId(event.target.value)}} />
+      <input type="number" onChange={(event) => {setstockId(event.target.value)}} />
       <label> Stock Name: </label>
-      <input type="text" onChange={(event) => {setsalesName(event.target.value)}} />
-      <label> Stock Info: </label>
-      <input type="date" onChange={(event) => {setsalesDate(event.target.value)}} />
+      <input type="text" onChange={(event) => {setstockName(event.target.value)}} />
+      <label> Stock Date: </label>
+      <input type="date" onChange={(event) => {setstockDate(event.target.value)}} />
       <label> Stock Quantity: </label>
-      <input type="text" onChange={(event) => {setsalesQuantity(event.target.value)}} />
+      <input type="text" onChange={(event) => {setstockAmt(event.target.value)}} />
       <button onClick={addToList}> Add Sales </button>
 
     </div>

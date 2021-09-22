@@ -9,6 +9,7 @@ import  {Route, Link } from "react-router-dom";
 import StockEdit from "./StockEdit";
 import SalesForm from "./SalesForm";
 import SalesDetails from "./SalesDetails";
+import SalesEdit from "./SalesEdit"
 
 class App extends React.Component {
 
@@ -27,7 +28,8 @@ class App extends React.Component {
         <Route exact path="/stockdetails" component={StockDetails} />
         <Route exact path="/salesform" component={SalesForm} />
         <Route exact path="/salesdetails" component={SalesDetails} />        
-        <Route exact path="/stockupdate" component={() => <StockEdit/>} />
+        <Route exact path="/update" component={() => <StockEdit/>} />
+        <Route exact path="/updatesales" component={() => <SalesEdit/>} />
 
       </div>
 

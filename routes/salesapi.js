@@ -2,12 +2,12 @@ const express = require('express');
 const router = express.Router();
 
 
-const StockModel = require('../models/StockItem');
+const SalesModel = require('../models/SalesPost');
 
 
 // GET
 router.get('/read', async (req,res)=>{
-    StockModel.find({}, (err, result) => {
+    SalesModel.find({}, (err, result) => {
         if (err) {
             res.send(err);
         }
@@ -22,21 +22,17 @@ router.get('/read', async (req,res)=>{
 router.post('/', async (req,res)=>{
     const stockId = req.body.stockId;
     const stockName = req.body.stockName;
-    const stockInfo = req.body.stockInfo;
-    const stockQuantity = req.body.stockQuantity;
-    const stockCost = req.body.stockCost;
-    const stockRetailPrice = req.body.stockRetailPrice;
-    const stock = new StockModel({ 
+    const stockDate = req.body.stockDate;
+    const stockAmt = req.body.stockAmt;
+    const sales = new SalesModel({ 
         stockId: stockId, 
         stockName: stockName,
-        stockInfo: stockInfo,
-        stockQuantity: stockQuantity,
-        stockCost: stockCost,
-        stockRetailPrice: stockRetailPrice,
+        stockDate: stockDate,
+        stockAmt: stockAmt,
     });
 
     try {
-        await stock.save();
+        await sales.save();
 
     } catch(err) {
         console.log(err);
@@ -44,14 +40,11 @@ router.post('/', async (req,res)=>{
 
 });
 
-
+/*
 router.put('/update', async (req,res)=>{
     const newStockName = req.body.newStockName;
-    const newStockInfo = req.body.newStockInfo;
-    const newStockQuantity = req.body.newStockQuantity;
-    const newStockCost = req.body.newStockCost;
-    const newStockRetailPrice = req.body.newStockRetailPrice;
-    const stockId = req.body.stockId;
+    const newStockDate = req.body.newStockDate;
+    const newStockAmt = req.body.newStockAmt;
 
     try {
         const stock = await StockModel.findOne({stockId});
@@ -60,21 +53,17 @@ router.put('/update', async (req,res)=>{
             {
                 stockId: stockId,
                 stockName: newStockName,
-                stockInfo: newStockInfo,
-                stockQuantity: newStockQuantity,
-                stockCost: newStockCost,
-                stockRetailPrice: newStockRetailPrice
+                stockDate: newStockDate,
+                stockAmt: newStockAmt,
             }
         )
-        await stock.save();
+        await Stock.save();
         res.send("update");
         
         await StockModel.findById(id, (err,updatedStock)=>{
             updatedStock.stockName = newStockName;
-            updatedStock.stockInfo = newStockInfo;
-            updatedStock.stockQuantity = newStockQuantity;
-            updatedStock.stockCost = newStockCost;
-            updatedStock.stockRetailPrice = newStockRetailPrice;
+            updatedStock.stockDate = newStockDate;
+            updatedStock.stockAmt = newStockAmt;
             updatedStock.save();
             res.send("update");
         });
@@ -95,10 +84,7 @@ router.delete("/delete/:id", async(req,res)=>{
 
 
 });
-
+*/
 
 module.exports = router;
-
-
-
 
