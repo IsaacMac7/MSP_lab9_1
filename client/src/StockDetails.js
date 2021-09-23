@@ -1,19 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, forwardRef } from "react";
 import axios from "axios";
 import './App.css';
 import { useHistory } from "react-router-dom";
+import MaterialTable from 'material-table';
+
+
+
+
 
 
 function StockDetails() {
+ 
   let history = useHistory();
-  const [stockList, setStockList] = useState([]);
+  const[stockList, setStockList] = useState([]);
 
   useEffect(()=>{
     axios.get('http://localhost:8080/api/read').then((response)=>{
       setStockList(response.data);
     })
-
-  }, [stockList]) 
+  },[stockList])
 
   const[newStockName, setNewStockName] = useState("");
 
@@ -31,32 +36,64 @@ function StockDetails() {
     axios.delete(`http://localhost:8080/api/delete/${id}`);
   };
 
+
+
+  const columns = [
+    {title: "Stock Id", field: 'stockId'},
+    {title: "Stock Name", field: 'stockName'},
+    {title: "Stock Info", field: 'stockInfo'},
+    {title: "Stock Quantity", field: 'stockQuantity'},
+    {title: "Stock Cost", field : 'stockCost'},
+    {title: "Stock Retail Price", field: 'stockRetailPrice'}
+  
+  ]
+
+
   return (
     <div className="App">
-      <h1> Stock List </h1>
-      {stockList.map((val,key)=> {
-        return(
-          <div key={key} className="stock">
-            <h1> {val.stockId} </h1>
-            <h1> {val.stockName}</h1>
-            <h1> {val.stockInfo}</h1>
-            <h1> {val.stockQuantity}</h1>
-            <h1> {val.stockCost} </h1>
-            <h1> {val.stockRetailPrice} </h1>
-      
-            <button onClick={() => {history.push({pathname: "/update", 
+      <MaterialTable 
+        title="Stock Details" 
+        data={stockList}
+        columns={columns}
+        actions={[
+          {
+            icon: 'add',
+            tooltip: 'Add new Stock',
+            isFreeAction: true,
+            onClick: (event, rowData) => {
+              window.location.href="http://localhost:3000/stockform"
+            }
+
+          },
+          {
+            icon: 'edit',
+            tooltip: 'Edit User',
+            onClick: (event, rowData) => {
+              
+              history.push({pathname: "/update",
               state: {
-                stockId: val.stockId,
-                stockName: val.stockName,
-                stockInfo: val.stockInfo,
-                stockQuantity: val.stockQuantity,
-                stockCost: val.stockCost,
-                stockRetailPrice: val.stockRetailPrice
-              }})}}> Update </button>
-            <button onClick={() => deleteStock(val._id)}> Delete </button>
-          </div>
-        );
-      })}
+                stockId: rowData.stockId,
+                stockName: rowData.stockName,
+                stockInfo: rowData.stockInfo,
+                stockQuantity: rowData.stockQuantity,
+                stockCost: rowData.stockCost,
+                stockRetailPrice: rowData.stockRetailPrice}
+              })
+            }
+          },
+          {
+            icon: 'delete',
+            tooltip: 'Delete Stock',
+            onClick: (event, rowData) => {
+              deleteStock(rowData._id)
+            }
+
+          },
+        ]}
+       
+    
+      />
+
     </div>
   );
 }

@@ -22,6 +22,8 @@
   "homepage": "https://github.com/IsaacMac7/MSP_lab9_1#readme",
   "dependencies": {
     "@material-ui/core": "^4.12.3",
+    "@material-ui/icons": "^4.11.2",
+    "@mui/icons-material": "^5.0.1",
     "axios": "^0.21.4",
     "concurrently": "^6.2.1",
     "cors": "^2.8.5",
