@@ -26,6 +26,7 @@ const StockSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    
     stockRetailPrice: {
         type: Number,
         required: true,
