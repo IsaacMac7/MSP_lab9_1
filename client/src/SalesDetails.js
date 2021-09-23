@@ -50,7 +50,7 @@ function SalesDetails() {
             tooltip: 'Add New Sales',
             isFreeAction: true,
             onClick: (event, rowData) => {
-              window.location.href="http://localhost:3000/stockform"
+              window.location.href="http://localhost:3000/salesform"
             }
 
           },
@@ -69,13 +69,18 @@ function SalesDetails() {
           },
           {
             icon: 'delete',
-            tooltip: 'Delete Stock',
+            tooltip: 'Delete Sales',
             onClick: (event, rowData) => {
               deleteSales(rowData._id)
             }
 
           },
+         
         ]}
+        options={{
+          actionsColumnIndex: -1
+
+        }}
       />
     </div>
   );

@@ -84,6 +84,10 @@ function StockDetails() {
 
           },
         ]}
+        options={{
+          actionsColumnIndex: -1
+
+        }}
       />
     </div>
   );
