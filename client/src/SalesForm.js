@@ -3,6 +3,7 @@ import axios from "axios";
 import './App.css';
 
 
+
 function App() {
 
   const [stockId, setstockId] = useState(0);
@@ -19,7 +20,13 @@ function App() {
       stockName: stockName,
       stockDate: stockDate,
       stockAmt: stockAmt,
-    });
+    })
+
+    window.location.href="http://localhost:3000/salesdetails";
+
+
+
+  
 
   };
 

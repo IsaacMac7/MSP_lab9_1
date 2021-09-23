@@ -22,7 +22,9 @@ function App() {
       stockQuantity: stockQuantity,
       stockCost: stockCost,
       stockRetailPrice: stockRetailPrice,
-    });
+    })
+
+    window.location.href="http://localhost:3000/stockdetails";
 
   };
 
