@@ -54,7 +54,7 @@ function App() {
         })} 
       </select>
 
-      <label> Stock Date: </label>
+      <label> Sale Date: </label>
       <input type="date" onChange={(event) => {setstockDate(event.target.value)}} />
       <label> Stock Quantity: </label>
       <input type="text" onChange={(event) => {setstockAmt(event.target.value)}} />

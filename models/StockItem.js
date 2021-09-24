@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const StockSchema = new mongoose.Schema({
 
     stockId: {
-        type: String,
+        type: Number,
         required: true,
     },
 
