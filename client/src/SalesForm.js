@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import './App.css';
 
@@ -11,6 +11,13 @@ function App() {
   const [stockDate, setstockDate] = useState("");
   const [stockAmt, setstockAmt] = useState(0);
 
+  const[stockList, setStockList] = useState([]);
+
+  useEffect(()=>{
+    axios.get('http://localhost:8080/api/read').then((response)=>{
+      setStockList(response.data);
+    })
+  },[stockList])
 
 
   
@@ -37,8 +44,12 @@ function App() {
    
       <label> Stock ID: </label>
       <input type="number" onChange={(event) => {setstockId(event.target.value)}} />
-      <label> Stock Name: </label>
-      <input type="text" onChange={(event) => {setstockName(event.target.value)}} />
+      <select onChange={(event) => {setstockName(event.target.value)}}> 
+        {stockList.map((val)=>{
+          return <option key={val}> {val.stockName} </option>
+        })} 
+      </select>
+
       <label> Stock Date: </label>
       <input type="date" onChange={(event) => {setstockDate(event.target.value)}} />
       <label> Stock Quantity: </label>
