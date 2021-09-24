@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 
 const SalesItemSchema = new mongoose.Schema({
 
-    stockId: {
+    salesId: {
         type: String,
         required: true,
     },
 
-    stockName: {
+    stockInfo: {
         type: String,
         required: true,
     },

@@ -32,9 +32,9 @@ function SalesDetails() {
   };
 
   const columns = [
-    {title: "Sales Id", field: 'stockId'},
-    {title: "Sale Name", field: 'stockName'},
-    {title: "Sale Info", field: 'stockDate'},
+    {title: "Sales Id", field: 'salesId'},
+    {title: "Stock Name", field: 'stockInfo'},
+    {title: "Sale Date", field: 'stockDate'},
     {title: "Sale Quantity", field: 'stockAmt'}
   ]
 
@@ -60,8 +60,8 @@ function SalesDetails() {
             onClick: (event, rowData) => {
               history.push({pathname: "/salesupdate",
               state: {
-                stockId: rowData.stockId,
-                stockName: rowData.stockName,
+                salesId: rowData.salesId,
+                stockInfo: rowData.stockInfo,
                 stockDate: rowData.stockDate,
                 stockAmt: rowData.stockAmt}
               })

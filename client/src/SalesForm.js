@@ -6,8 +6,8 @@ import './App.css';
 
 function App() {
 
-  const [stockId, setstockId] = useState(0);
-  const [stockName, setstockName] = useState("");
+  const [salesId, setSalesId] = useState(0);
+  const [stockInfo, setStockInfo] = useState("");
   const [stockDate, setstockDate] = useState("");
   const [stockAmt, setstockAmt] = useState(0);
 
@@ -23,8 +23,8 @@ function App() {
   
   const addToList = () => {
     axios.post("http://localhost:8080/salesapi/", {
-      stockId: stockId, 
-      stockName: stockName,
+      salesId: salesId, 
+      stockInfo: stockInfo,
       stockDate: stockDate,
       stockAmt: stockAmt,
     })
@@ -41,12 +41,16 @@ function App() {
   return (
     <div className="App">
       <h1> ADD SALES TRANSACTION </h1>
-   
-      <label> Stock ID: </label>
-      <input type="number" onChange={(event) => {setstockId(event.target.value)}} />
-      <select onChange={(event) => {setstockName(event.target.value)}}> 
+      <label> Sales ID: </label>
+      <input type="number" onChange={(event) => {setSalesId(event.target.value)}} />
+      <label> Product: </label>
+      <select placeholder = "ID Name" onChange={(event) => {setStockInfo(event.target.value)}}> 
         {stockList.map((val)=>{
-          return <option key={val}> {val.stockName} </option>
+          return (<option key={val} > {val.stockId} {val.stockName}
+            </option>
+            
+          );
+
         })} 
       </select>
 
