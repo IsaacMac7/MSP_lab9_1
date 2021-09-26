@@ -11,8 +11,16 @@ function SalesEdit() {
     const [stockAmt, setStockAmt] = useState(0);
     const [stockDate, setDate] = useState("");
 
+    const[stockList, setStockList] = useState([]);
+
   const history = useHistory();
   const location = useLocation();
+
+  useEffect(()=>{
+    axios.get('http://localhost:8080/api/read').then((response)=>{
+      setStockList(response.data);
+    })
+  },[stockList])
 
   useEffect(() => {
       setSalesId(location.state.salesId);
@@ -49,7 +57,11 @@ function SalesEdit() {
       <label> Sales ID: </label>
       <input type="number" value={location.state.salesId} />
       <label> Stock Info: </label>
-      <input type="text" defaultValue={location.state.stockInfo} onChange={(event) => {setStockInfo(event.target.value)}} />
+      <select value={location.state.stockInfo} onChange={(event)=> {setStockInfo(event.target.value)}}> 
+      {stockList.map((val)=>{
+        return(<option key={val}> {val.stockId} {val.stockName} </option>);
+      })}
+      </select>
       <label> Sale Date: </label>
       <input type="date" defaultValue={location.state.stockDate} onChange={(event) => {setDate(event.target.value)}} />
       <label> Amount Sold: </label>
@@ -58,5 +70,6 @@ function SalesEdit() {
     </div>
   );
 }
+
 
 export default SalesEdit;
