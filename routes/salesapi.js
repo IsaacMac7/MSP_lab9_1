@@ -1,21 +1,18 @@
 const express = require('express');
 const router = express.Router();
-
-
+const alert = require('alert');
 const SalesModel = require('../models/SalesPost');
-
 
 // GET
 router.get('/read', async (req,res)=>{
     SalesModel.find({}, (err, result) => {
         if (err) {
+            alert('Error: Reading sales detail in database.\nError message: ' + err);
+            console.log(err);
             res.send(err);
         }
-
         res.send(result);
-
     });
-   
 });
 
 // POST
@@ -30,14 +27,14 @@ router.post('/', async (req)=>{
         stockDate: stockDate,
         stockAmt: stockAmt,
     });
-
+    
     try {
         await sales.save();
 
     } catch(err) {
+        alert('Error: Saving sale detail in database.\nError message: ' + err);
         console.log(err);
     }
-
 });
 
 
@@ -69,22 +66,24 @@ router.put('/salesupdate', async (req,res)=>{
             updatedStock.save();
             res.send("update");
         });
-        
-
     } catch(err) {
+        alert('Error: Updating sale detail in database.\nError message: ' + err);
         console.log(err);
     }
 
 });
 
 router.delete("/salesdelete/:id", async(req,res)=>{
-
     const id = req.params.id;
+    try {
+        await SalesModel.findByIdAndRemove(id).exec();
+    }
+    catch (err) {
+        alert('Error: Deleting sale detail in database.\nError message: ' + err);
+        console.log(err);
+    }
 
-    await SalesModel.findByIdAndRemove(id).exec();
     res.send('deleted');
-
-
 });
 
 
