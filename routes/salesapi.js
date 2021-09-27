@@ -22,6 +22,7 @@ router.post('/', async (req, res)=>{
     const stockInfo = req.body.stockInfo;
     const stockDate = req.body.stockDate;
     const stockAmt = req.body.stockAmt;
+    var itemInStock = 0;
     const sales = new SalesModel({ 
         salesId: salesId, 
         stockInfo: stockInfo,
@@ -30,17 +31,23 @@ router.post('/', async (req, res)=>{
     });
 
     // get stock Quantity
-    const itemInStock = StockModel.find({ stockName : stockInfo }, (err, result) => {
+    var query = StockModel.findOne({ stockName : stockInfo }).select('stockQuantity');
+    query.exec((err, result) => {
         if (err) {
             alert('Error: Reading stock numbers in database, check console for more');
             console.log(err);
             res.send(err);
         }
-        res.send(result);
-    }).select('stockQuantity');
-    alert(itemInStock);
+        else {
+            alert("result quantity: " + result.stockQuantity);
+            itemInStock = result.stockQuantity;
+            res.send(result);
+        }
+    });
 
-    if (itemInStock.stockQuantity >= stockAmt) {
+    alert("iteminstock:" + itemInStock);
+    
+    if (itemInStock >= stockAmt) {
         try {
             await sales.save();
     
@@ -50,7 +57,7 @@ router.post('/', async (req, res)=>{
         }
     }
     else {
-        alert("Quantity:" + itemInStock.stockQuantity);
+        alert("Quantity:" + itemInStock);
     }
     
 });
