@@ -3,6 +3,7 @@ const router = express.Router();
 const alert = require('alert');
 const SalesModel = require('../models/SalesPost');
 const StockModel = require('../models/StockItem');
+const axios = require('axios');
 
 // GET
 router.get('/read', async (req,res)=>{
@@ -39,26 +40,43 @@ router.post('/', async (req, res)=>{
             res.send(err);
         }
         else {
-            alert("result quantity: " + result.stockQuantity);
+            //alert("result quantity: " + result.stockQuantity);
             itemInStock = result.stockQuantity;
-            res.send(result);
+            if (itemInStock >= Number(stockAmt)) {
+                try {
+                    sales.save();
+            
+                } catch(err) {
+                    alert('Error: Saving sale detail in database.\nError message: ' + err);
+                    console.log(err);
+                }
+            }
+            else {
+                alert("Quantity:" + itemInStock);
+            }
+            //res.send(result);
         }
     });
 
-    alert("iteminstock:" + itemInStock);
-    
-    if (itemInStock >= stockAmt) {
-        try {
-            await sales.save();
-    
-        } catch(err) {
-            alert('Error: Saving sale detail in database.\nError message: ' + err);
+    var stockQuery = StockModel.findOne({ stockName : stockInfo });
+    stockQuery.exec((err, result) => {
+        if (err) {
+            alert('Error: Reading stock details in database, check console for more');
             console.log(err);
+            res.send(err);
         }
-    }
-    else {
-        alert("Quantity:" + itemInStock);
-    }
+        else {
+            axios.put("http://localhost:8080/api/update", {
+                stockId: result.stockId,
+                newStockName: result.stockName,
+                newStockInfo: result.StockInfo,
+                newStockQuantity: result.StockQuantity,
+                newStockCost: result.StockCost - itemInStock,
+                newStockRetailPrice: result.StockRetailPrice,
+            });
+        }
+    });
+
     
 });
 

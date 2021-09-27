@@ -51,7 +51,6 @@ router.put('/update', async (req,res)=>{
 
     try {
         const stock = await StockModel.findOne({stockId});
-
         stock.overwrite(
             {
                 stockId: stockId,

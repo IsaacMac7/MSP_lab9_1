@@ -25,13 +25,12 @@ function App() {
 
   
   const addToList = () => {
-    alert(stockInfo);
     axios.post("http://localhost:8080/salesapi/", {
       salesId: salesId, 
       stockInfo: stockInfo,
       stockDate: stockDate,
       stockAmt: stockAmt,
-    })
+    });
 
     window.location.href="http://localhost:3000/salesdetails";
   };
