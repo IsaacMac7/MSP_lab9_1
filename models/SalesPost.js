@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const SalesItemSchema = new mongoose.Schema({
-
     salesId: {
         type: String,
         required: true,
@@ -19,9 +18,6 @@ const SalesItemSchema = new mongoose.Schema({
         type: String,
         default : Date.now()
     }
-
- 
-
 });
 
 const SalesPost = mongoose.model("SalesPost", SalesItemSchema);

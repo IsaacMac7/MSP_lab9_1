@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import alert from "alert";
 import './App.css';
 
 
@@ -13,6 +14,8 @@ function App() {
 
   const[stockList, setStockList] = useState([]);
 
+  const[stockNum, setStockNum] = useState(0);
+
   useEffect(()=>{
     axios.get('http://localhost:8080/api/read').then((response)=>{
       setStockList(response.data);
@@ -22,6 +25,7 @@ function App() {
 
   
   const addToList = () => {
+    alert(stockInfo);
     axios.post("http://localhost:8080/salesapi/", {
       salesId: salesId, 
       stockInfo: stockInfo,
@@ -30,11 +34,6 @@ function App() {
     })
 
     window.location.href="http://localhost:3000/salesdetails";
-
-
-
-  
-
   };
 
 
@@ -46,7 +45,7 @@ function App() {
       <label> Product: </label>
       <select placeholder = "ID Name" onChange={(event) => {setStockInfo(event.target.value)}}> 
         {stockList.map((val)=>{
-          return (<option key={val} > {val.stockId} {val.stockName}
+          return (<option key={val} > {val.stockName}
             </option>
             
           );

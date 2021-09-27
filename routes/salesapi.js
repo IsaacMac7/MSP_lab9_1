@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const alert = require('alert');
 const SalesModel = require('../models/SalesPost');
+const StockModel = require('../models/StockItem');
 
 // GET
 router.get('/read', async (req,res)=>{
@@ -16,7 +17,7 @@ router.get('/read', async (req,res)=>{
 });
 
 // POST
-router.post('/', async (req)=>{
+router.post('/', async (req, res)=>{
     const salesId = req.body.salesId;
     const stockInfo = req.body.stockInfo;
     const stockDate = req.body.stockDate;
@@ -27,14 +28,31 @@ router.post('/', async (req)=>{
         stockDate: stockDate,
         stockAmt: stockAmt,
     });
-    
-    try {
-        await sales.save();
 
-    } catch(err) {
-        alert('Error: Saving sale detail in database.\nError message: ' + err);
-        console.log(err);
+    // get stock Quantity
+    const itemInStock = StockModel.find({ stockName : stockInfo }, (err, result) => {
+        if (err) {
+            alert('Error: Reading stock numbers in database, check console for more');
+            console.log(err);
+            res.send(err);
+        }
+        res.send(result);
+    }).select('stockQuantity');
+    alert(itemInStock);
+
+    if (itemInStock.stockQuantity >= stockAmt) {
+        try {
+            await sales.save();
+    
+        } catch(err) {
+            alert('Error: Saving sale detail in database.\nError message: ' + err);
+            console.log(err);
+        }
     }
+    else {
+        alert("Quantity:" + itemInStock.stockQuantity);
+    }
+    
 });
 
 
