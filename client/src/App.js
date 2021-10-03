@@ -4,31 +4,45 @@ import Home from "./Home";
 import StockForm from "./StockForm";
 import StockDetails from './StockDetails';
 import NavBar from './Navbar';
-import {Route} from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
 import StockEdit from "./StockEdit";
 import SalesForm from "./SalesForm";
 import SalesDetails from "./SalesDetails";
 import SalesEdit from "./SalesEdit"
+import "./index.css";
+import { makeStyles } from '@material-ui/core/styles';
 
-class App extends React.Component {
 
- 
-  render() {
+const useStyles = makeStyles({
+  container: {
+    display: 'flex'
+  }
 
-    // Temporary Navigation Bar
- 
+})
+
+
+export default function App() {
+
+  
+    const classes = useStyles();
+
 
     return (
       <div>
         <h2>PHP React App</h2>
-        <NavBar />
-        <Route exact path="/" component={Home} /> 
-        <Route exact path="/stockform" component={StockForm} />
-        <Route exact path="/stockdetails" component={StockDetails} />
-        <Route exact path="/salesform" component={SalesForm} />
-        <Route exact path="/salesdetails" component={SalesDetails} />        
-        <Route exact path="/update" component={() => <StockEdit/>} />
-        <Route exact path="/salesupdate" component={() => <SalesEdit/>} />
+
+        <div className = {classes.container}>
+          <NavBar />
+          <Switch>
+            <Route exact path="/" component={Home} /> 
+            <Route exact path="/stockform" component={StockForm} />
+            <Route exact path="/stockdetails" component={StockDetails} />
+            <Route exact path="/salesform" component={SalesForm} />
+            <Route exact path="/salesdetails" component={SalesDetails} />        
+            <Route exact path="/update" component={() => <StockEdit/>} />
+            <Route exact path="/salesupdate" component={() => <SalesEdit/>} />
+          </Switch>
+        </div>
 
       </div>
 
@@ -36,7 +50,6 @@ class App extends React.Component {
 
      
     );
-  }
+  
 }
 
-export default App;
