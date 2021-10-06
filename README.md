@@ -19,7 +19,7 @@ npm install -g nodemon
 // install MUI	  
 npm install @mui/material
 
-// install Google Material Icons for React	MUI 
+// install Google Material Icons for React MUI	  
 npm install @mui/icons-material
   
 // to run the entire stack  
