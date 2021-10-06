@@ -8,7 +8,8 @@ import {Route, Switch} from "react-router-dom";
 import StockEdit from "./StockEdit";
 import SalesForm from "./SalesForm";
 import SalesDetails from "./SalesDetails";
-import SalesEdit from "./SalesEdit"
+import SalesEdit from "./SalesEdit";
+import WeeklySalesReport from "./WeeklySalesReport";
 import "./index.css";
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -41,6 +42,7 @@ export default function App() {
             <Route exact path="/salesdetails" component={SalesDetails} />        
             <Route exact path="/update" component={() => <StockEdit/>} />
             <Route exact path="/salesupdate" component={() => <SalesEdit/>} />
+            <Route exact path="/weeklysalesreport" component = {() => <WeeklySalesReport/>} />
           </Switch>
         </div>
 
