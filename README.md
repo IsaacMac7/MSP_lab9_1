@@ -16,10 +16,10 @@ npm install mongoose express morgan concurrently axios -S
 // easier server handling  
 npm install -g nodemon  
 
-// installing MUI
+// installing MUI	
 npm install @mui/material
 
-// installing Google Material Icons for React
+// installing Google Material Icons for React	MUI
 npm install @mui/icons-material
   
 // to run the entire stack  
