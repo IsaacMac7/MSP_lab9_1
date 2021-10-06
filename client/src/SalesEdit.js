@@ -6,17 +6,25 @@ import SalesDetails from "./SalesDetails";
 import  {Route, useHistory} from "react-router-dom";
 
 function SalesEdit() {
-    const [stockId, setStockID] = useState(0);
-    const [stockName, setStockName] = useState("");
+    const [salesId, setSalesId] = useState(0);
+    const [stockInfo, setStockInfo] = useState("");
     const [stockAmt, setStockAmt] = useState(0);
     const [stockDate, setDate] = useState("");
+
+    const[stockList, setStockList] = useState([]);
 
   const history = useHistory();
   const location = useLocation();
 
+  useEffect(()=>{
+    axios.get('http://localhost:8080/api/read').then((response)=>{
+      setStockList(response.data);
+    })
+  },[stockList])
+
   useEffect(() => {
-      setStockID(location.state.stockId);
-      setStockName(location.state.stockName);
+      setSalesId(location.state.salesId);
+      setStockInfo(location.state.stockInfo);
       setStockAmt(location.state.stockAmt);
       setDate(location.state.stockDate);
   }, [location]);
@@ -24,10 +32,10 @@ function SalesEdit() {
   const editList = () => {
     try {
         axios.put("http://localhost:8080/salesapi/salesupdate", {
-            stockId: stockId,
-            newStockName: stockName,
+            salesId: salesId,
+            newStockInfo: stockInfo,
             newStockAmt: stockAmt,
-            newDate: stockDate,
+            newStockDate: stockDate,
           });
     }
     catch (err) {
@@ -46,10 +54,14 @@ function SalesEdit() {
   return (
     <div className="App">
       <h1> EDIT SALES RECORDS</h1>
-      <label> Stock ID: </label>
-      <input type="number" value={location.state.stockId} />
-      <label> Stock Name: </label>
-      <input type="text" defaultValue={location.state.stockName} onChange={(event) => {setStockName(event.target.value)}} />
+      <label> Sales ID: </label>
+      <input type="number" value={location.state.salesId} />
+      <label> Stock Info: </label>
+      <select value={location.state.stockInfo} onChange={(event)=> {setStockInfo(event.target.value)}}> 
+      {stockList.map((val)=>{
+        return(<option key={val}> {val.stockId} {val.stockName} </option>);
+      })}
+      </select>
       <label> Sale Date: </label>
       <input type="date" defaultValue={location.state.stockDate} onChange={(event) => {setDate(event.target.value)}} />
       <label> Amount Sold: </label>
@@ -58,5 +70,6 @@ function SalesEdit() {
     </div>
   );
 }
+
 
 export default SalesEdit;

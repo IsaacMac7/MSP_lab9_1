@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 
 const SalesItemSchema = new mongoose.Schema({
 
-    stockId: {
+    salesId: {
         type: String,
         required: true,
     },
 
-    stockName: {
+    stockInfo: {
         type: String,
         required: true,
     },
@@ -17,7 +17,7 @@ const SalesItemSchema = new mongoose.Schema({
     },
     stockDate: {
         type: String,
-        default : Date.now() + 7*24*60*60*1000
+        default : Date.now()
     }
 
  

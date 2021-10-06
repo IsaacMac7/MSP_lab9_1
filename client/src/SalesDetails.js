@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import './App.css';
 import { useHistory } from "react-router-dom";
-
+import MaterialTable from 'material-table';
 
 function SalesDetails() {
   let history = useHistory();
@@ -27,32 +27,61 @@ function SalesDetails() {
     
   };
 
-  const deleteStock = (id) => {
+  const deleteSales = (id) => {
     axios.delete(`http://localhost:8080/salesapi/salesdelete/${id}`);
   };
 
+  const columns = [
+    {title: "Sales Id", field: 'salesId'},
+    {title: "Stock Name", field: 'stockInfo'},
+    {title: "Sale Date", field: 'stockDate'},
+    {title: "Sale Quantity", field: 'stockAmt'}
+  ]
+
   return (
     <div className="App">
-      <h1> Sales List </h1>
-      {salesList.map((val,key)=> {
-        return(
-          <div key={key} className="sales">
-            <h1> {val.stockId} </h1>
-            <h1> {val.stockName}</h1>
-            <h1> {val.stockDate}</h1>
-            <h1> {val.stockAmt}</h1>
-      
-            <button onClick={() => {history.push({pathname: "/salesupdate", 
+      <MaterialTable 
+        title="Sales Details" 
+        data={salesList}
+        columns={columns}
+        actions={[
+          {
+            icon: 'add',
+            tooltip: 'Add New Sales',
+            isFreeAction: true,
+            onClick: (event, rowData) => {
+              window.location.href="http://localhost:3000/salesform"
+            }
+
+          },
+          {
+            icon: 'edit',
+            tooltip: 'Edit Item',
+            onClick: (event, rowData) => {
+              history.push({pathname: "/salesupdate",
               state: {
-                stockId: val.stockId,
-                stockName: val.stockName,
-                stockDate: val.stockDate,
-                stockAmt: val.stockAmt,
-              }})}}> Update </button>
-            <button onClick={() => deleteStock(val._id)}> Delete </button>
-          </div>
-        );
-      })}
+                salesId: rowData.salesId,
+                stockInfo: rowData.stockInfo,
+                stockDate: rowData.stockDate,
+                stockAmt: rowData.stockAmt}
+              })
+            }
+          },
+          {
+            icon: 'delete',
+            tooltip: 'Delete Sales',
+            onClick: (event, rowData) => {
+              deleteSales(rowData._id)
+            }
+
+          },
+         
+        ]}
+        options={{
+          actionsColumnIndex: -1
+
+        }}
+      />
     </div>
   );
 }

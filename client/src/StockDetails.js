@@ -4,13 +4,7 @@ import './App.css';
 import { useHistory } from "react-router-dom";
 import MaterialTable from 'material-table';
 
-
-
-
-
-
 function StockDetails() {
- 
   let history = useHistory();
   const[stockList, setStockList] = useState([]);
 
@@ -48,7 +42,7 @@ function StockDetails() {
   
   ]
 
-
+  console.log(columns);
   return (
     <div className="App">
       <MaterialTable 
@@ -58,7 +52,7 @@ function StockDetails() {
         actions={[
           {
             icon: 'add',
-            tooltip: 'Add new Stock',
+            tooltip: 'Add New Stock',
             isFreeAction: true,
             onClick: (event, rowData) => {
               window.location.href="http://localhost:3000/stockform"
@@ -67,7 +61,7 @@ function StockDetails() {
           },
           {
             icon: 'edit',
-            tooltip: 'Edit User',
+            tooltip: 'Edit Item',
             onClick: (event, rowData) => {
               
               history.push({pathname: "/update",
@@ -90,10 +84,11 @@ function StockDetails() {
 
           },
         ]}
-       
-    
-      />
+        options={{
+          actionsColumnIndex: -1
 
+        }}
+      />
     </div>
   );
 }

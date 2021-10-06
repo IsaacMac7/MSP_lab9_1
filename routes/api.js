@@ -1,21 +1,18 @@
 const express = require('express');
 const router = express.Router();
-
-
+const alert = require('alert');
 const StockModel = require('../models/StockItem');
-
 
 // GET
 router.get('/read', async (req,res)=>{
     StockModel.find({}, (err, result) => {
         if (err) {
+            alert('Error: Reading stocks detail in database, check console for more');
+            console.log(err);
             res.send(err);
         }
-
         res.send(result);
-
     });
-   
 });
 
 // POST
@@ -37,11 +34,10 @@ router.post('/', async (req,res)=>{
 
     try {
         await stock.save();
-
     } catch(err) {
+        alert('Error: Saving stock in database.\nError message: ' + err);
         console.log(err);
     }
-
 });
 
 
@@ -78,27 +74,23 @@ router.put('/update', async (req,res)=>{
             updatedStock.save();
             res.send("update");
         });
-        
-
     } catch(err) {
+        alert('Error: Updating stock detail in database.\nError message: ' + err);
         console.log(err);
     }
 
 });
 
 router.delete("/delete/:id", async(req,res)=>{
-
     const id = req.params.id;
-
-    await StockModel.findByIdAndRemove(id).exec();
+    try {
+        await StockModel.findByIdAndRemove(id).exec();
+    }
+    catch (err) {
+        alert('Error: Deleting stock detail in database.\nError message: ' + err);
+        console.log(err);
+    }
     res.send('deleted');
-
-
 });
 
-
 module.exports = router;
-
-
-
-

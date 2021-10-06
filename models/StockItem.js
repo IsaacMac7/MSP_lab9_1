@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const StockSchema = new mongoose.Schema({
 
     stockId: {
-        type: String,
+        type: Number,
         required: true,
     },
 
@@ -26,6 +26,7 @@ const StockSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    
     stockRetailPrice: {
         type: Number,
         required: true,
