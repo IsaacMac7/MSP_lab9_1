@@ -14,12 +14,12 @@ npm install --global yarn
 npm install mongoose express morgan concurrently axios -S  
   
 // easier server handling  
-npm install -g nodemon  
+npm install -g nodemon 
 
-// installing MUI	
+// install MUI	  
 npm install @mui/material
 
-// installing Google Material Icons for React	MUI
+// install Google Material Icons for React	MUI 
 npm install @mui/icons-material
   
 // to run the entire stack  
