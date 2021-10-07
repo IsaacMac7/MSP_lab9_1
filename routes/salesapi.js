@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const alert = require('alert');
 const SalesModel = require('../models/SalesPost');
+const StockModel = require('../models/StockItem');
+const axios = require('axios');
 
 // GET
 router.get('/read', async (req,res)=>{
@@ -16,25 +18,65 @@ router.get('/read', async (req,res)=>{
 });
 
 // POST
-router.post('/', async (req)=>{
+router.post('/', async (req, res)=>{
     const salesId = req.body.salesId;
     const stockInfo = req.body.stockInfo;
     const stockDate = req.body.stockDate;
     const stockAmt = req.body.stockAmt;
+    var itemInStock = 0;
     const sales = new SalesModel({ 
         salesId: salesId, 
         stockInfo: stockInfo,
         stockDate: stockDate,
         stockAmt: stockAmt,
     });
-    
-    try {
-        await sales.save();
 
-    } catch(err) {
-        alert('Error: Saving sale detail in database.\nError message: ' + err);
-        console.log(err);
-    }
+    // get stock Quantity
+    var query = StockModel.findOne({ stockName : stockInfo })
+    var quantity = query.select('stockQuantity');
+    quantity.exec((err, result) => {
+        if (err) {
+            alert('Error: Reading stock numbers in database, check console for more');
+            console.log(err);
+            res.send(err);
+        }
+        else {
+            //alert("result quantity: " + result.stockQuantity);
+            itemInStock = result.stockQuantity;
+            if (itemInStock >= Number(stockAmt)) {
+                try {
+                    sales.save();
+                    var stockQuery = StockModel.findOne({ stockName : stockInfo });
+                    stockQuery.exec((err, result) => {
+                        if (err) {
+                            alert('Error: Reading stock details in database, check console for more');
+                            console.log(err);
+                            res.send(err);
+                        }
+                        else {
+                            axios.put("http://localhost:8080/api/update", {
+                                stockId: result.stockId,
+                                newStockName: result.stockName,
+                                newStockInfo: result.stockInfo,
+                                newStockQuantity: result.stockQuantity - stockAmt,
+                                newStockCost: result.stockCost,
+                                newStockRetailPrice: result.stockRetailPrice,
+                            });
+                        }
+                    });
+                } catch(err) {
+                    alert('Error: Saving sale detail in database.\nError message: ' + err);
+                    console.log(err);
+                }
+            }
+            else {
+                alert("Quantity:" + itemInStock);
+            }
+            //res.send(result);
+        }
+    });
+
+    
 });
 
 

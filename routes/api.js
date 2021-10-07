@@ -47,14 +47,20 @@ router.put('/update', async (req,res)=>{
     const newStockQuantity = req.body.newStockQuantity;
     const newStockCost = req.body.newStockCost;
     const newStockRetailPrice = req.body.newStockRetailPrice;
-    const stockId = req.body.stockId;
+    const newstockId = req.body.stockId;
+    console.log(newstockId)
+    console.log(newStockName)
+    console.log(newStockInfo)
+    console.log(newStockQuantity)
+    console.log(newStockCost)
+    console.log(newStockRetailPrice)
 
     try {
-        const stock = await StockModel.findOne({stockId});
-
+        const stock = await StockModel.findOne({newstockId});
+        console.log(stock)
         stock.overwrite(
             {
-                stockId: stockId,
+                stockId: newstockId,
                 stockName: newStockName,
                 stockInfo: newStockInfo,
                 stockQuantity: newStockQuantity,
@@ -64,8 +70,8 @@ router.put('/update', async (req,res)=>{
         )
         await stock.save();
         res.send("update");
-        
-        await StockModel.findById(id, (err,updatedStock)=>{
+        /*
+        await StockModel.findOne({stockId: newstockId}, (err,updatedStock)=>{
             updatedStock.stockName = newStockName;
             updatedStock.stockInfo = newStockInfo;
             updatedStock.stockQuantity = newStockQuantity;
@@ -74,6 +80,7 @@ router.put('/update', async (req,res)=>{
             updatedStock.save();
             res.send("update");
         });
+        */
     } catch(err) {
         alert('Error: Updating stock detail in database.\nError message: ' + err);
         console.log(err);

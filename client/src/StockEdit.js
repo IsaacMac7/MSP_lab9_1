@@ -27,6 +27,7 @@ function StockEdit() {
   
   const editList = () => {
     try {
+      console.log(stockId);
         axios.put("http://localhost:8080/api/update", {
             stockId: stockId,
             newStockName: stockName,
