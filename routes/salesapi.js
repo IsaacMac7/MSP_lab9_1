@@ -32,8 +32,9 @@ router.post('/', async (req, res)=>{
     });
 
     // get stock Quantity
-    var query = StockModel.findOne({ stockName : stockInfo }).select('stockQuantity');
-    query.exec((err, result) => {
+    var query = StockModel.findOne({ stockName : stockInfo })
+    var quantity = query.select('stockQuantity');
+    quantity.exec((err, result) => {
         if (err) {
             alert('Error: Reading stock numbers in database, check console for more');
             console.log(err);
@@ -45,7 +46,24 @@ router.post('/', async (req, res)=>{
             if (itemInStock >= Number(stockAmt)) {
                 try {
                     sales.save();
-            
+                    var stockQuery = StockModel.findOne({ stockName : stockInfo });
+                    stockQuery.exec((err, result) => {
+                        if (err) {
+                            alert('Error: Reading stock details in database, check console for more');
+                            console.log(err);
+                            res.send(err);
+                        }
+                        else {
+                            axios.put("http://localhost:8080/api/update", {
+                                stockId: result.stockId,
+                                newStockName: result.stockName,
+                                newStockInfo: result.stockInfo,
+                                newStockQuantity: result.stockQuantity - stockAmt,
+                                newStockCost: result.stockCost,
+                                newStockRetailPrice: result.stockRetailPrice,
+                            });
+                        }
+                    });
                 } catch(err) {
                     alert('Error: Saving sale detail in database.\nError message: ' + err);
                     console.log(err);
@@ -55,25 +73,6 @@ router.post('/', async (req, res)=>{
                 alert("Quantity:" + itemInStock);
             }
             //res.send(result);
-        }
-    });
-
-    var stockQuery = StockModel.findOne({ stockName : stockInfo });
-    stockQuery.exec((err, result) => {
-        if (err) {
-            alert('Error: Reading stock details in database, check console for more');
-            console.log(err);
-            res.send(err);
-        }
-        else {
-            axios.put("http://localhost:8080/api/update", {
-                stockId: result.stockId,
-                newStockName: result.stockName,
-                newStockInfo: result.StockInfo,
-                newStockQuantity: result.StockQuantity,
-                newStockCost: result.StockCost - itemInStock,
-                newStockRetailPrice: result.StockRetailPrice,
-            });
         }
     });
 
