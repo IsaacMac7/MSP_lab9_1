@@ -16,12 +16,11 @@ function App() {
     axios.get('http://localhost:8080/api/read').then((response)=>{
       setStockList(response.data);
     })
-  },[])
+  },[stockList])
 
 
   
   const addToList = () => {
-    console.log(salesPrice);
     axios.post("http://localhost:8080/salesapi/", {
       salesId: salesId, 
       stockInfo: stockInfo,
@@ -60,7 +59,7 @@ function App() {
       <label> Stock Quantity: </label>
       <input type="text" onChange={(event) => {setstockAmt(event.target.value)}} />
       <label> Sale Price: </label>
-      <input type="number" value={Price(stockInfo) * stockAmt} onChange={(event) => {setsalesPrice(event.target.value)}} 
+      <input type="number" value={Price(stockInfo) * stockAmt} onMouseMove={(event) => {setsalesPrice(event.target.value)}} 
        />
       <button onClick={addToList}> Add Sales </button>
     </div>
