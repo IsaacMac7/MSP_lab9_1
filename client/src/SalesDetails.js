@@ -13,7 +13,7 @@ function SalesDetails() {
       setSalesList(response.data);
     })
 
-  }, [salesList]) 
+  }, []) 
 
   const[newSalesName, setNewSalesName] = useState("");
 

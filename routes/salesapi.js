@@ -21,11 +21,14 @@ router.post('/', async (req)=>{
     const stockInfo = req.body.stockInfo;
     const stockDate = req.body.stockDate;
     const stockAmt = req.body.stockAmt;
+    const salesPrice = req.body.salesPrice;
+    console.log(req.body.salesPrice);
     const sales = new SalesModel({ 
         salesId: salesId, 
         stockInfo: stockInfo,
         stockDate: stockDate,
         stockAmt: stockAmt,
+        salesPrice: salesPrice,
     });
     
     try {
@@ -43,6 +46,7 @@ router.put('/salesupdate', async (req,res)=>{
     const newStockDate = req.body.newStockDate;
     const newStockAmt = req.body.newStockAmt;
     const salesId = req.body.salesId;
+    const salesPrice = req.body.salesPrice;
 
     try {
         const stock = await SalesModel.findOne({salesId});
@@ -53,6 +57,7 @@ router.put('/salesupdate', async (req,res)=>{
                 stockInfo: newStockInfo,
                 stockDate: newStockDate,
                 stockAmt: newStockAmt,
+                salesPrice: salesPrice,
             }
         )
         await stock.save();
@@ -63,6 +68,7 @@ router.put('/salesupdate', async (req,res)=>{
             updatedStock.stockInfo = newStockInfo;
             updatedStock.stockDate = newStockDate;
             updatedStock.stockAmt = newStockAmt;
+            updatedStock.salesPrice = salesPrice;
             updatedStock.save();
             res.send("update");
         });

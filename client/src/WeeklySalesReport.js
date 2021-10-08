@@ -36,7 +36,7 @@ function App() {
       <label>StockAmt:</label>
       <select placeholder = "ID Name"> 
         {salesList.map((val)=>{
-          return (<option key={val} > {val.stockInfo} {val.stockAmt} 
+          return (<option key={val} > {val.stockInfo} {val.stockAmt} {val.stockRetailPrice}
             </option>
             
           );
