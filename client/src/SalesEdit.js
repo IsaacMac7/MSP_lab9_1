@@ -70,7 +70,7 @@ function SalesEdit() {
       <label> Amount Sold: </label>
       <input type="text" defaultValue={location.state.stockAmt} onChange={(event) => {setStockAmt(event.target.value)}} />
       <label> Sale Price: </label>
-      <input type="number" value = {ItemPrice(salesPrice, stockAmt) * stockAmt} onMouseMove={(event) => {setsalesPrice(event.target.value)}} />
+      <input type="number" value = {ItemPrice(location.state.salesPrice, location.state.stockAmt) * stockAmt} onMouseMove={(event) => {setsalesPrice(event.target.value)}} />
       <button onClick={editList}> Update Stock </button>
     </div>
   );
