@@ -38,7 +38,7 @@ function SalesEdit() {
             newStockInfo: stockInfo,
             newStockAmt: stockAmt,
             newStockDate: stockDate,
-            salesPrice: salesPrice,
+            newsalesPrice: salesPrice,
           });
     }
     catch (err) {
@@ -70,11 +70,15 @@ function SalesEdit() {
       <label> Amount Sold: </label>
       <input type="text" defaultValue={location.state.stockAmt} onChange={(event) => {setStockAmt(event.target.value)}} />
       <label> Sale Price: </label>
-      <input type="text" defaultValue={location.state.salesPrice} onChange={(event) => {setsalesPrice(event.target.value)}} />
+      <input type="number" value = {ItemPrice(salesPrice, stockAmt) * stockAmt} onMouseMove={(event) => {setsalesPrice(event.target.value)}} />
       <button onClick={editList}> Update Stock </button>
     </div>
   );
 }
 
+function ItemPrice(salesPrice, StockAmount){
+  var itemprice = salesPrice / StockAmount;
+  return itemprice;
+}
 
 export default SalesEdit;
