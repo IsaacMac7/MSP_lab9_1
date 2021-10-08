@@ -33,7 +33,7 @@ function SalesDetails() {
 
   const columns = [
     {title: "Sales Id", field: 'salesId'},
-    {title: "Stock Name", field: 'stockInfo'},
+    {title: "Stock Information", field: 'stockInfo'},
     {title: "Sale Date", field: 'stockDate'},
     {title: "Sale Quantity", field: 'stockAmt'},
     {title: "Sales Price", field: 'salesPrice'},
