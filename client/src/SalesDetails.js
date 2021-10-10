@@ -13,7 +13,7 @@ function SalesDetails() {
       setSalesList(response.data);
     })
 
-  }, []) 
+  }, [salesList]) 
 
   const[newSalesName, setNewSalesName] = useState("");
 
@@ -33,9 +33,10 @@ function SalesDetails() {
 
   const columns = [
     {title: "Sales Id", field: 'salesId'},
-    {title: "Stock Name", field: 'stockInfo'},
+    {title: "Stock Information", field: 'stockInfo'},
     {title: "Sale Date", field: 'stockDate'},
-    {title: "Sale Quantity", field: 'stockAmt'}
+    {title: "Sale Quantity", field: 'stockAmt'},
+    {title: "Sales Price", field: 'salesPrice'},
   ]
 
   return (
@@ -63,7 +64,8 @@ function SalesDetails() {
                 salesId: rowData.salesId,
                 stockInfo: rowData.stockInfo,
                 stockDate: rowData.stockDate,
-                stockAmt: rowData.stockAmt}
+                stockAmt: rowData.stockAmt,
+                salesPrice: rowData.salesPrice}
               })
             }
           },

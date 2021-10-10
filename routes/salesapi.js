@@ -57,7 +57,7 @@ router.put('/salesupdate', async (req,res)=>{
     const newStockDate = req.body.newStockDate;
     const newStockAmt = req.body.newStockAmt;
     const salesId = req.body.salesId;
-    const salesPrice = req.body.salesPrice;
+    const newsalesPrice = req.body.newsalesPrice;
 
     try {
         const stock = await SalesModel.findOne({salesId});
@@ -68,7 +68,7 @@ router.put('/salesupdate', async (req,res)=>{
                 stockInfo: newStockInfo,
                 stockDate: newStockDate,
                 stockAmt: newStockAmt,
-                salesPrice: salesPrice,
+                salesPrice: newsalesPrice,
             }
         )
         await stock.save();
@@ -79,7 +79,7 @@ router.put('/salesupdate', async (req,res)=>{
             updatedStock.stockInfo = newStockInfo;
             updatedStock.stockDate = newStockDate;
             updatedStock.stockAmt = newStockAmt;
-            updatedStock.salesPrice = salesPrice;
+            updatedStock.salesPrice = newsalesPrice;
             updatedStock.save();
             res.send("update");
         });

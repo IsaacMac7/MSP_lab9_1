@@ -16,7 +16,7 @@ function App() {
     axios.get('http://localhost:8080/api/read').then((response)=>{
       setStockList(response.data);
     })
-  },[])
+  },[stockList])
 
   const addToList = () => {
     console.log(salesPrice);
@@ -33,14 +33,14 @@ function App() {
 
 
   return (
-    <div className="App">
+    <div className="App" >
       <h1> ADD SALES TRANSACTION </h1>
       <label> Sales ID: </label>
       <input type="number" onChange={(event) => {setSalesId(event.target.value)}} />
       <label> Product: </label>
       <select placeholder = "ID Name" onMouseMove={(event) => {setStockInfo(event.target.value)}}> 
         {stockList.map((val)=>{
-          return (<option key={val} > {val.stockId} {val.stockName} {val.stockRetailPrice}
+          return (<option key={val} > Stock ID: {val.stockId} Stock Name: {val.stockName} ${val.stockRetailPrice}
             </option>
             
           );
@@ -62,8 +62,8 @@ function App() {
 }
 
 function Price(stockInfo) {
-  var splitInfo = stockInfo.split(' ');
-  var splitPrice = splitInfo[2];
+  var splitInfo = stockInfo.split('$');
+  var splitPrice = splitInfo[1];
   return splitPrice
 }
 export default App;
