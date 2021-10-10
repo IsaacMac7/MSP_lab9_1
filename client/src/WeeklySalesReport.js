@@ -1,48 +1,64 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import './App.css';
+import MaterialTable from 'material-table';
+
+// Accepts a Date object or date string that is recognized by the Date.parse() method
+function getDayOfWeek(date) {
+  const dayOfWeek = new Date(date).getDay();    
+  return isNaN(dayOfWeek) ? null : 
+    ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][dayOfWeek];
+}
 
 function App() {
 
-    const[stockList, setStockList] = useState([]);
-    const[salesList, setSalesList] = useState([]);
-
+    const[reportList, setReportList] = useState([]);
 
     useEffect(()=>{
-        axios.get('http://localhost:8080/api/read').then((response)=>{
-          setStockList(response.data);
-        })
-        axios.get('http://localhost:8080/salesapi/read').then((response)=>{
-            setSalesList(response.data);
-          })
-      },[stockList],[salesList])
+        axios.get('http://localhost:8080/salesapi/readreport').then((response)=>{
+          var res = response.data;
+          res.forEach(r => r.stockDate = getDayOfWeek(r.stockDate))
+          var list = res.find(r => r.stockDate);
+          /*
+          var list = [];
+          list.push(res[0])
+          for (var i = 1; i < res.length; i++) {
+            if (list.exist(list.stockDate == res[i].stockDate)) {
+              var ind = list.findIndex(list.stockDate == res[i].stockDate);
+              list[ind].salesPrice += res[i].salesPrice;
+            }
+          }
+          */
 
-    
+          setReportList(res);
+        })
+      },[reportList])
+
+    console.log(JSON.stringify(reportList))
+
+    const columns = [
+      {title: "Stock Name", field: 'stockInfo'},
+      {title: "Sale Price", field: 'salesPrice'},
+      {title: "Sales Day", field: 'stockDate'}
+    ]
 
     return (
         <div className = "App">
-
-
-<label>Price: </label>
-<select placeholder = "ID Name"> 
-        {stockList.map((val)=>{
-          return (<option key={val} > {val.stockRetailPrice}
-            </option>
-            
-          );
-
-        })} 
-      </select>
-      <label>StockAmt:</label>
-      <select placeholder = "ID Name"> 
-        {salesList.map((val)=>{
-          return (<option key={val} > {val.stockInfo} {val.stockAmt} {val.stockRetailPrice}
-            </option>
-            
-          );
-
-        })} 
-      </select>
+          <MaterialTable 
+            title="Sales Report" 
+            data={reportList}
+            columns={columns}
+            actions={[
+              {
+                icon: 'add',
+                tooltip: 'Add New Sales',
+                isFreeAction: true,
+                onClick: (event, rowData) => {
+                  window.location.href="http://localhost:3000/salesform"
+                }
+              }
+            ]}
+          />
         </div>
     );
 

@@ -18,8 +18,6 @@ function App() {
     })
   },[])
 
-
-  
   const addToList = () => {
     console.log(salesPrice);
     axios.post("http://localhost:8080/salesapi/", {
@@ -31,11 +29,6 @@ function App() {
     })
 
     window.location.href="http://localhost:3000/salesdetails";
-
-
-
-  
-
   };
 
 
@@ -45,7 +38,7 @@ function App() {
       <label> Sales ID: </label>
       <input type="number" onChange={(event) => {setSalesId(event.target.value)}} />
       <label> Product: </label>
-      <select placeholder = "ID Name" onChange={(event) => {setStockInfo(event.target.value)}}> 
+      <select placeholder = "ID Name" onMouseMove={(event) => {setStockInfo(event.target.value)}}> 
         {stockList.map((val)=>{
           return (<option key={val} > {val.stockId} {val.stockName} {val.stockRetailPrice}
             </option>
@@ -60,7 +53,7 @@ function App() {
       <label> Stock Quantity: </label>
       <input type="text" onChange={(event) => {setstockAmt(event.target.value)}} />
       <label> Sale Price: </label>
-      <input type="number" value={Price(stockInfo) * stockAmt} onChange={(event) => {setsalesPrice(event.target.value)}} 
+      <input type="number" value={Price(stockInfo) * stockAmt} onMouseMove={(event) => {setsalesPrice(event.target.value)}} 
        />
       <button onClick={addToList}> Add Sales </button>
     </div>

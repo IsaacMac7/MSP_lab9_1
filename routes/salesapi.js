@@ -15,6 +15,17 @@ router.get('/read', async (req,res)=>{
     });
 });
 
+router.get('/readreport', async (req,res)=>{
+    SalesModel.find({}, (err, result) => {
+        if (err) {
+            alert('Error: Reading sales detail in database.\nError message: ' + err);
+            console.log(err);
+            res.send(err);
+        }
+        res.send(result);
+    });
+});
+
 // POST
 router.post('/', async (req)=>{
     const salesId = req.body.salesId;
@@ -22,7 +33,7 @@ router.post('/', async (req)=>{
     const stockDate = req.body.stockDate;
     const stockAmt = req.body.stockAmt;
     const salesPrice = req.body.salesPrice;
-    console.log(req.body.salesPrice);
+
     const sales = new SalesModel({ 
         salesId: salesId, 
         stockInfo: stockInfo,
