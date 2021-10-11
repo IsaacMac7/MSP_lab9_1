@@ -7,6 +7,7 @@ import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 
 
 const useStyles = makeStyles({
@@ -47,6 +48,11 @@ const NavBar = () => {
             text: 'SALES LIST',
             icon: <AttachMoneyIcon />,
             path: '/salesdetails'
+        },
+        {
+            text: 'REPORT',
+            icon: <MonetizationOnIcon />,
+            path: '/weeklyreport'
         }
     ]
     return(
