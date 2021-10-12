@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useHistory} from 'react-router-dom';
+import { Link, useHistory,useLocation} from 'react-router-dom';
 import { Drawer as MUIDrawer, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import HomeIcon from '@mui/icons-material/Home';
 import { makeStyles } from '@material-ui/core/styles';
@@ -7,11 +7,20 @@ import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import Divider from '@mui/material/Divider';
+import { Typography } from '@mui/material';
 
 
 const useStyles = makeStyles({
     drawer: {
       width: '200px'
+    },
+    paper: {
+        background: "#8F99E7",
+        color: "#FFFFFF"
+    },
+    active: {
+        background: '#6D78C7'
     }
   
   })
@@ -20,37 +29,49 @@ const useStyles = makeStyles({
 const NavBar = () => {
     const classes = useStyles();
     const history = useHistory();
+    const location = useLocation();
    
 
     const itemList = [
         {
             text: 'Home',
-            icon: <HomeIcon />,
+            icon: <HomeIcon style={{color: 'white'}}/>,
             path: '/'
         },
         {
             text: 'ADD STOCK',
-            icon: <AddBusinessIcon />,
+            icon: <AddBusinessIcon style={{color: 'white'}}/>,
             path: '/stockform'
         },
         {
             text: 'STOCK LIST',
-            icon: <PlaylistAddIcon />,
+            icon: <PlaylistAddIcon style={{color: 'white'}}/>,
             path: '/stockdetails'
         },
         {
             text: 'ADD SALES',
-            icon: <PointOfSaleIcon />,
+            icon: <PointOfSaleIcon style={{color: 'white'}}/>,
             path: '/salesform'
         },
         {
             text: 'SALES LIST',
-            icon: <AttachMoneyIcon />,
+            icon: <AttachMoneyIcon style={{color: 'white'}}/>,
             path: '/salesdetails'
         }
     ]
     return(
-        <MUIDrawer variant="permanent" className={classes.drawer}>
+        <MUIDrawer 
+        variant="permanent" 
+        className={classes.drawer}
+        classes={{paper: classes.paper}}>
+            <div> 
+                <Typography variant="h4">
+                    PHP
+                </Typography>
+            </div>
+            <Divider
+           
+             />
             <List>
                 {itemList.map(item => (
 
@@ -58,6 +79,7 @@ const NavBar = () => {
                     button
                     key={item.text}
                     onClick={() => history.push(item.path)}
+                    className={location.pathname == item.path ? classes.active : null}
                     >  
 
                     <ListItemIcon>{item.icon}</ListItemIcon>
