@@ -4,6 +4,7 @@ import './App.css';
 import { useLocation } from "react-router-dom";
 import SalesDetails from "./SalesDetails";
 import  {Route, useHistory} from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function SalesEdit() {
     const [salesId, setSalesId] = useState(0);

@@ -3,8 +3,6 @@ import axios from "axios";
 import alert from "alert";
 import './App.css';
 
-
-
 function App() {
 
   const [salesId, setSalesId] = useState(0);

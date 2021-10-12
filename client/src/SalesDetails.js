@@ -3,6 +3,7 @@ import axios from "axios";
 import './App.css';
 import { useHistory } from "react-router-dom";
 import MaterialTable from 'material-table';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function SalesDetails() {
   let history = useHistory();
@@ -40,8 +41,10 @@ function SalesDetails() {
 
   return (
     <div className="App">
+      <h1 class="container rounded border py-3 my-10">Items Sold</h1>
       <MaterialTable 
-        title="Sales Details" 
+        title="Sales Details"
+        style={{ width: "98%", margin: "1%", color: '#6D78C7'}}
         data={salesList}
         columns={columns}
         actions={[
@@ -78,8 +81,14 @@ function SalesDetails() {
          
         ]}
         options={{
-          actionsColumnIndex: -1
-
+          actionsColumnIndex: -1,
+          headerStyle: {
+            backgroundColor: '#8f99e7',
+            color: 'white',
+            fontWeight: 'bold',
+            borderTopWidth: 2,
+            borderColor: 'white'
+          }
         }}
       />
     </div>

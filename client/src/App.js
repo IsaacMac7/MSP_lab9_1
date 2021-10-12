@@ -11,6 +11,7 @@ import SalesDetails from "./SalesDetails";
 import SalesEdit from "./SalesEdit"
 import "./index.css";
 import { makeStyles } from '@material-ui/core/styles';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const useStyles = makeStyles({
@@ -29,10 +30,8 @@ export default function App() {
 
     return (
       <div>
-        <h2>PHP React App</h2>
-
-        <div className = {classes.container}>
-          <NavBar />
+        <div className = {classes.container} >
+          <NavBar/>
           <Switch>
             <Route exact path="/" component={Home} /> 
             <Route exact path="/stockform" component={StockForm} />
