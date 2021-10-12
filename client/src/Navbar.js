@@ -52,6 +52,11 @@ const NavBar = () => {
             text: 'SALES RECORD',
             icon: <AttachMoneyIcon />,
             path: '/weeklysalesreport'
+        },
+        {
+            text: 'GRAPH',
+            icon: <AttachMoneyIcon />,
+            path: '/graph'
         }
     ]
     return(
