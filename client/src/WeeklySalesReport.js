@@ -37,7 +37,7 @@ function App() {
     console.log(JSON.stringify(reportList))
 
     const columns = [
-      {title: "Stock Name", field: 'stockInfo'},
+      {title: "Stock Info", field: 'stockInfo'},
       {title: "Sale Price", field: 'salesPrice'},
       {title: "Sales Day", field: 'stockDate'}
     ]
