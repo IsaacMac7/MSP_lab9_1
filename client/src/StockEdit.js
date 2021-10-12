@@ -51,22 +51,60 @@ function StockEdit() {
 
 
   return (
-    <div className="App">
-      <h1> EDIT STOCK ITEM </h1>
-      <label> Stock ID: </label>
-      <input type="number" value={location.state.stockId} />
-      <label> Stock Name: </label>
-      <input type="text" defaultValue={location.state.stockName} onChange={(event) => {setStockName(event.target.value)}} />
-      <label> Stock Info: </label>
-      <input type="text" defaultValue={location.state.stockInfo} onChange={(event) => {setStockInfo(event.target.value)}} />
-      <label> Stock Quantity: </label>
-      <input type="text" defaultValue={location.state.stockQuantity} onChange={(event) => {setStockQuantity(event.target.value)}} />
-      <label> Stock Cost: </label>
-      <input type="text" defaultValue={location.state.stockCost} onChange={(event) => {setStockCost(event.target.value)}} />
-      <label> Stock Retail Price: </label>
-      <input type="text" defaultValue={location.state.stockRetailPrice} onChange={(event) => {setStockRetailPrice(event.target.value)}} />
-      <button onClick={editList}> Update Stock </button>
+    <div>
+      <form style={{color: "#8F99E7"}}>
+        <div className="row g-3 align-items-center needs-validation">
+          <h1> EDIT STOCK ITEM </h1>
+
+          <form style={{color: "#8F99E7"}}> 
+            <div class="col-md-7">
+              <label class="form-label"> Stock ID: </label>
+              <input class="form-control" type="number" value={location.state.stockId} />
+              
+            </div>
+
+            <div class="col-md-7">
+              <label class="form-label"> Stock Name: </label>
+              <input class="form-control" type="text" defaultValue={location.state.stockName} onChange={(event) => {setStockName(event.target.value)}} />
+
+            </div>
+
+            <div class="col-md-7">
+              <label class="form-label"> Stock Info: </label>
+              <input class="form-control" type="text" defaultValue={location.state.stockInfo} onChange={(event) => {setStockInfo(event.target.value)}} />
+
+            </div>
+
+            <div class="col-md-7"> 
+              <label class="form-label"> Stock Quantity: </label>
+              <input class="form-control" type="text" defaultValue={location.state.stockQuantity} onChange={(event) => {setStockQuantity(event.target.value)}} />
+            </div>
+
+            <div class="col-md-7"> 
+              <label class="form-label"> Stock Cost: </label>
+              <input class="form-control" type="text" defaultValue={location.state.stockCost} onChange={(event) => {setStockCost(event.target.value)}} />
+            </div>
+            <div class="col-md-7">
+              <label class="form-label"> Stock Retail Price: </label>
+              <input class="form-control" type="text" defaultValue={location.state.stockRetailPrice} onChange={(event) => {setStockRetailPrice(event.target.value)}} />
+
+            </div>
+          </form>
+
+          <div class="col-12"> 
+            <button style={{backgroundColor: "#8F99E7"}} class="btn btn-primary" onClick={editList}> Update Stock </button>
+          </div>
+
+          
+          
+      
+        </div>
+          
+      
+
+      </form>
     </div>
+
   );
 }
 

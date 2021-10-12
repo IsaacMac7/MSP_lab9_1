@@ -30,7 +30,7 @@ export default function App() {
 
     return (
       <div>
-        <h2>PHP React App</h2>
+        
 
         <div className = {classes.container}>
           <NavBar />
