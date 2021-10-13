@@ -3,7 +3,7 @@ import axios from "axios";
 import './App.css';
 
 
-import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer} from "recharts";
+import {Scatter, ScatterChart, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer} from "recharts";
   
 //   const data = [
 //     {
@@ -51,7 +51,7 @@ import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsiv
 //   ];
 
 function Graph() {
-    const [salesList, setSalesList] = useState([]);
+    var [salesList, setSalesList] = useState([]);
     const [salesId, setSalesId] = useState(0);
     const [stockInfo, setStockInfo] = useState("");
     const [stockDate, setstockDate] = useState("");
@@ -63,35 +63,45 @@ function Graph() {
         })
     
       }, [salesList]) 
-    const data = salesList;
+
+    //  var newsalesList =  myfunction(salesList);
+    // if (parseID == "6") {
+    //     return salesList
+    // }
+    // console.log(newsalesList);
+    // const panadolgroup = panadolParse(salesList);
+    // console.log(String(panadolgroup));
+    var result = salesList.filter(x => x.stockInfo === "Stock ID: 6 Stock Name: Panadol $15");
+    console.log(result);
 return (
     <ResponsiveContainer width="90%" aspect={3}>
-        <LineChart
-        width={500}
-        height={300}
-        data={data}
-        margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5
-        }}
-        >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="salesId" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Line
-            type="monotone"
-            dataKey="salesPrice"
-            stroke="#8884d8"
-            activeDot={{ r: 8 }}
-        />
-        <Line type="monotone" dataKey="stockAmt" stroke="#82ca9d" />
-        </LineChart>
+        <ScatterChart width={730} height={250}
+            margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="stockDate" name="DATE" />
+            <YAxis dataKey="salesPrice" name="price" unit=" AUD" />
+            <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+            <Legend />
+            <Scatter name="Panadol sales" data={result} fill="#8884d8" />
+            
+        </ScatterChart>
     </ResponsiveContainer>
   );
 }
+
+// function myfunction(salesList) {
+//     var splitted = String(salesList.stockInfo).split(':');
+//     var parseID = splitted[2];
+//     if (parseID==" 6 Stock Name") {
+//         return salesList;
+//     }
+// }
+
+// function panadolParse(salesList) {
+//     var panadolgroup = [];
+//     if (salesList.some(item => item.stockInfo === 'Stock ID: 6 Stock Name: Panadol $15')) {
+//         return panadolgroup = salesList;
+//     }
+// }
 
 export default Graph;
