@@ -15,6 +15,7 @@ function App() {
     const[reportList, setReportList] = useState([]);
     const[dates, setDates] = useState([]);
     const[startWeek, setStartWeek] = useState([]);
+    const list = [];
 
     useEffect(()=>{
         axios.get('http://localhost:8080/salesapi/read').then((response)=>{
@@ -26,20 +27,39 @@ function App() {
           setDates(dateList);
 
           // get total stock of starting week for each product
-          res.forEach(r => (dict[r.stockInfo] === undefined) && (r.stockDate === String(startWeek)) 
+          for (const r of res) {
+            const startDate = Date.parse(startWeek);
+            var lastDate = new Date(startDate);
+            lastDate.setDate(lastDate.getDate() + 6);
+            const curDate = Date.parse(r.stockDate);
+
+            if (curDate <= lastDate && curDate >= startDate) {
+              if (dict[r.stockInfo] === undefined) {
+                dict[r.stockInfo] = Number(r.stockAmt);
+              }
+              else {
+                dict[r.stockInfo] = Number(dict[r.stockInfo]) + Number(r.stockAmt);
+              }
+            }
+          }
+          
+          // make a list
+          for (const [key, value] of Object.entries(dict)) {
+            let finalList = {info: key, amount: value};
+            list.push(finalList);
+          }
+          /*
+          res.forEach(r => (dict[r.stockInfo] === undefined) && (r.stockDate == String(startWeek)) 
                             ? dict[r.stockInfo] = Number(r.stockAmt) 
                             : dict[r.stockInfo] = Number(dict[r.stockInfo]) + Number(r.stockAmt));
-
-          setReportList(dict);
+          */
+          setReportList(list);
         })
       },[reportList])
 
-    console.log(JSON.stringify(reportList))
-    console.log(startWeek);
-
     const columns = [
-      {title: "Stock Info", field: 'key'},
-      {title: "Sales Amount", field: 'value'},
+      {title: "Stock Info", field: "info"},
+      {title: "Sales Amount", field: "amount"},
     ]
 
     return (
