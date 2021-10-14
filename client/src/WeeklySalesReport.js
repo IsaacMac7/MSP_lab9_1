@@ -13,37 +13,47 @@ function getDayOfWeek(date) {
 function App() {
 
     const[reportList, setReportList] = useState([]);
+    const[dates, setDates] = useState([]);
+    const[startWeek, setStartWeek] = useState([]);
 
     useEffect(()=>{
-        axios.get('http://localhost:8080/salesapi/readreport').then((response)=>{
+        axios.get('http://localhost:8080/salesapi/read').then((response)=>{
           var res = response.data;
-          res.forEach(r => r.stockDate = getDayOfWeek(r.stockDate))
-          var list = res.find(r => r.stockDate);
-          /*
-          var list = [];
-          list.push(res[0])
-          for (var i = 1; i < res.length; i++) {
-            if (list.exist(list.stockDate == res[i].stockDate)) {
-              var ind = list.findIndex(list.stockDate == res[i].stockDate);
-              list[ind].salesPrice += res[i].salesPrice;
-            }
-          }
-          */
+          var dateList = [];
+          var dict = {};
+          // get all unique dates
+          res.forEach(r => (!dateList.includes(r.stockDate) && getDayOfWeek(r.stockDate) === 'Monday' ? dateList.push(r.stockDate) : null));
+          setDates(dateList);
 
-          setReportList(res);
+          // get total stock of starting week for each product
+          res.forEach(r => (dict[r.stockInfo] === undefined) && (r.stockDate === String(startWeek)) 
+                            ? dict[r.stockInfo] = Number(r.stockAmt) 
+                            : dict[r.stockInfo] = Number(dict[r.stockInfo]) + Number(r.stockAmt));
+
+          setReportList(dict);
         })
       },[reportList])
 
     console.log(JSON.stringify(reportList))
+    console.log(startWeek);
 
     const columns = [
-      {title: "Stock Name", field: 'stockInfo'},
-      {title: "Sale Price", field: 'salesPrice'},
-      {title: "Sales Day", field: 'stockDate'}
+      {title: "Stock Info", field: 'key'},
+      {title: "Sales Amount", field: 'value'},
     ]
 
     return (
         <div className = "App">
+          <label> Starting Week: </label>
+            <select placeholder = "Week" onChange={(event) => {setStartWeek(event.target.value)}}> 
+              {dates.map((val)=>{
+                return (<option key={val} > {val}
+                  </option>
+                  
+                );
+
+              })} 
+            </select>
           <MaterialTable 
             title="Sales Report" 
             data={reportList}
