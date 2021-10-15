@@ -20,7 +20,7 @@ input, button, select{
   margin: 5px;
 }
 
-.chart-container {
+#myChart {
   width: 1000px;
   height:600px
 }
