@@ -78,6 +78,10 @@ function App() {
             title="Sales Report" 
             data={reportList}
             columns={columns}
+            options={{
+              exportButton: true,
+              exportAllData: true
+            }}
             actions={[
               {
                 icon: 'add',
