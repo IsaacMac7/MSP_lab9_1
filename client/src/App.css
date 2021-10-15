@@ -19,3 +19,8 @@ input, button, select{
   font-size: 20px;
   margin: 5px;
 }
+
+.chart-container {
+  width: 1000px;
+  height:600px
+}

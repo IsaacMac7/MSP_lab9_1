@@ -56,13 +56,13 @@ function Graph () {
           empAmt.push(dataObj.stockAmt);
         }
         setChartData({
-          labels: empAmt,
+          labels: empDate,
           datasets: [
             {
-              label: "Date",
-              data: empDate,
+              label: "Amount Sold",
+              data: empAmt,
               backgroundColor: ["rgba(75, 192, 192, 0.6)"],
-              borderWidth: 4
+              borderWidth: 2
             }
           ]
         });
@@ -78,15 +78,16 @@ function Graph () {
   useEffect(() => {
     chart();
   }, []);
+
   return (
-    <div className="Graph">
+    <div className="Graph" class="chart-container">
       <h1>Graph</h1>
-      <div>
         <Line
           data={chartData}
           options={{
+            maintainAspectRatio: false,
             responsive: true,
-            title: { text: "THICCNESS SCALE", display: true },
+            title: { text: "SALES", display: true },
             scales: {
               yAxes: [
                 {
@@ -110,7 +111,6 @@ function Graph () {
             }
           }}
         />
-      </div>
     </div>
   );
 
