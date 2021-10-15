@@ -7,13 +7,14 @@ import './App.css';
 
 function byID(salesList){
     const filteredData = salesList.filter(function(item){
-        return item.stockInfo  == "Stock ID: 6 Stock Name: Panadol $15";
+        return item.stockInfo  == "Stock ID: 7 Stock Name: Doliprane $10";
     })
-    console.log("filtered", filteredData)
+    console.log("filtered", filteredData);
+    return filteredData;
 }
 
 export default function Graph(){
-    const[salesList, setsalesList] = useState([]);
+    var[salesList, setsalesList] = useState([]);
     const[dateList, setdateList] = useState([]);
     const[amtList, setamtList] = useState([]);
     const[stockList, setStockList] = useState([]);
@@ -24,7 +25,8 @@ export default function Graph(){
         let empAmt = [];
         axios.get('http://localhost:8080/salesapi/read').then((response)=>{
           setsalesList(response.data);
-          for (const dataObj of response.data) {
+          salesList = byID(salesList);
+          for (const dataObj of salesList) {
               empDate.push(dataObj.stockDate); //dataObj sees it as individual key-value pairs, must be put into an array first (in order)
               empAmt.push(dataObj.stockAmt);
           }
@@ -47,7 +49,7 @@ export default function Graph(){
     //   console.log("stock list", stockList);
 
     //call function that seperates by stockInfo
-    byID(salesList);
+    
     
     const chart = {
         labels: dateList,
