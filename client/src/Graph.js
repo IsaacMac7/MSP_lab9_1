@@ -12,46 +12,17 @@ function Graph () {
   const [stockDate, setstockDate] = useState("");
   const [stockAmt, setstockAmt] = useState(0);
   const [salesPrice, setsalesPrice] = useState(0);
-  
 
-  // //get API
-  // useEffect(()=>{
-  //   axios.get('http://localhost:8080/salesapi/read').then((response)=>{
-  //     setSalesList(response.data);
-  //   })
-
-  // }, [salesList]) 
-
-  // //sort for panadol
-  // var result = salesList.filter(x => x.stockInfo === "Stock ID: 6 Stock Name: Panadol $15");
-  // console.log(result);
-
-  // //canvas for graph
-  // return (
-  //   <div>
-  //     <Line
-  //       data={{
-  //         labels: [stockDate],
-  //         datasets: [
-  //           {
-  //             label: 'Panadol Sales',
-  //             data: [stockAmt],l
-  //           }
-  //         ]
-  //       }}
-        
-  //     />
-  //   </div>
-  // ) 
-
-  const chart = () => {
+  function chart() {
     let empDate = [];
     let empAmt = [];
     axios
       .get('http://localhost:8080/salesapi/read')
       .then(response => {
-        console.log(response);
-        for (const dataObj of response.data){
+        setSalesList(response.data);
+        // console.log(response);
+        // console.log(splitID(response));
+        for (const dataObj of response.data) {
           empDate.push(dataObj.stockDate);
           empAmt.push(dataObj.stockAmt);
         }
@@ -70,22 +41,21 @@ function Graph () {
       .catch(err => {
         console.log(err);
       });
-      console.log(empDate, empDate);
+    // console.log(empDate, empDate);
   }
-
-
 
   useEffect(() => {
     chart();
-  }, []);
-
+  }, [salesList]);
+  // console.log("sales array", salesList); 
+  // console.log(splitID(salesList.stockInfo));
   return (
     <div className="Graph" class="chart-container">
       <h1>Graph</h1>
         <Line
           data={chartData}
           options={{
-            maintainAspectRatio: false,
+            maintainAspectRatio: false, //essential for resizing chart
             responsive: true,
             title: { text: "SALES", display: true },
             scales: {
@@ -111,11 +81,24 @@ function Graph () {
             }
           }}
         />
+        <button onClick={(onChange) => applyFilter()} value = "salesList" > Click me </button>
     </div>
   );
-
   
+  function applyFilter(saleList){
+    //check array is being passed through
+    console.log("apply filter (original array):", salesList);
+    //check filtered data works
+    const filteredData = salesList.filter(function(ele){
+      return ele.stockInfo == "Stock ID: 6 Stock Name: Panadol $15";
+    });
+    console.log("apply filter (new array):", filteredData);
+
+  }
 }
+
+
+
 
 
 export default Graph;
