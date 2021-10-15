@@ -5,11 +5,11 @@ import {Chart} from 'react-chartjs-2';
 
 import './App.css';
 
-function byID(salesList){
+function byID(salesList, selectedStock){
     const filteredData = salesList.filter(function(item){
-        return item.stockInfo  == "Stock ID: 7 Stock Name: Doliprane $10";
+        return item.stockInfo  == selectedStock;
     })
-    console.log("filtered", filteredData);
+    // console.log("filtered", filteredData);
     return filteredData;
 }
 
@@ -18,6 +18,7 @@ export default function Graph(){
     const[dateList, setdateList] = useState([]);
     const[amtList, setamtList] = useState([]);
     const[stockList, setStockList] = useState([]);
+    var [selectedStock, setselectedStock] = useState("");
 
     //fetch sales data
     useEffect(()=>{
@@ -25,7 +26,7 @@ export default function Graph(){
         let empAmt = [];
         axios.get('http://localhost:8080/salesapi/read').then((response)=>{
           setsalesList(response.data);
-          salesList = byID(salesList);
+          salesList = byID(salesList, selectedStock);
           for (const dataObj of salesList) {
               empDate.push(dataObj.stockDate); //dataObj sees it as individual key-value pairs, must be put into an array first (in order)
               empAmt.push(dataObj.stockAmt);
@@ -47,10 +48,12 @@ export default function Graph(){
         })
       },[stockList])
     //   console.log("stock list", stockList);
+    
+    //check selected stock
+    // console.log(selectedStock);
+    
 
-    //call function that seperates by stockInfo
-    
-    
+    //draw data on graph
     const chart = {
         labels: dateList,
         datasets: [
@@ -68,20 +71,32 @@ export default function Graph(){
 
     return (
         <div >
-        <Line id={"myChart"}
-            data={chart}
-            options={{
-                maintainAspectRatio: false,
-                title:{
+            <div>
+                <select placeholder = "ID Name" onMouseMove={(event) => {setselectedStock(event.target.value)}}> 
+                    {stockList.map((val)=>{
+                        return (<option key={val} > Stock ID: {val.stockId} Stock Name: {val.stockName} ${val.stockRetailPrice}
+                            </option>
+                            
+                        );
+
+                    })} 
+                </select>
+            </div>
+            <Line id={"myChart"}
+                data={chart}
+                options={{
+                    maintainAspectRatio: true,
+                    title:{
+                        display:true,
+                        fontSize:20
+                },
+                legend:{
                     display:true,
-                    fontSize:20
-            },
-            legend:{
-                display:true,
-                position:'right'
-            }
-            }}
-        />
+                    position:'right'
+                }
+                }}
+            />
         </div>
+
     );
 }
