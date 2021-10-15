@@ -85,6 +85,9 @@ export default function Graph(){
             <Line id={"myChart"}
                 data={chart}
                 options={{
+                    animation: {
+                        duration: 0
+                    },
                     maintainAspectRatio: true,
                     title:{
                         display:true,
