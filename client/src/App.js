@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import './App.css';
 import Home from "./Home";
 import StockForm from "./StockForm";
@@ -10,6 +10,7 @@ import SalesForm from "./SalesForm";
 import SalesDetails from "./SalesDetails";
 import SalesEdit from "./SalesEdit";
 import WeeklySalesReport from "./WeeklySalesReport";
+import Login from "./Login"
 import Graph from "./Graph";
 import "./index.css";
 import { makeStyles } from '@material-ui/core/styles';
@@ -27,8 +28,11 @@ export default function App() {
 
   
     const classes = useStyles();
+    const [token, setToken] = useState();
 
-
+    if (!token) {
+      return <Login setToken={setToken} />
+    }
     return (
       <div>
         <h2>PHP React App</h2>
@@ -45,6 +49,7 @@ export default function App() {
             <Route exact path="/salesupdate" component={() => <SalesEdit/>} />
             <Route exact path="/weeklysalesreport" component = {() => <WeeklySalesReport/>} />
             <Route exact path="/graph" component = {() => <Graph/>} />
+            <Route exact path="/login" component={Login} />
           </Switch>
         </div>
 

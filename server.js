@@ -29,6 +29,12 @@ app.use(express.urlencoded({extended: false}));
 
 app.use(cors());
 
+app.use('/login', (req, res) => {
+    res.send({
+        token:'test123'
+    });
+});
+
 // Handles HTTP requests
 app.use(morgan('tiny'));
 app.use('/api', routes);
