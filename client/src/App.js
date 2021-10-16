@@ -10,6 +10,7 @@ import SalesForm from "./SalesForm";
 import SalesDetails from "./SalesDetails";
 import SalesEdit from "./SalesEdit";
 import WeeklySalesReport from "./WeeklySalesReport";
+import MonthlySalesReport from "./MonthlySalesReport";
 import "./index.css";
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -43,6 +44,7 @@ export default function App() {
             <Route exact path="/update" component={() => <StockEdit/>} />
             <Route exact path="/salesupdate" component={() => <SalesEdit/>} />
             <Route exact path="/weeklysalesreport" component = {() => <WeeklySalesReport/>} />
+            <Route exact path="/monthlysalesreport" component = {() => <MonthlySalesReport/>} />
           </Switch>
         </div>
 

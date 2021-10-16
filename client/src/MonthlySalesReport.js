@@ -3,13 +3,6 @@ import axios from "axios";
 import './App.css';
 import MaterialTable from 'material-table';
 
-// Accepts a Date object or date string that is recognized by the Date.parse() method
-function getDayOfWeek(date) {
-  const dayOfWeek = new Date(date).getDay();    
-  return isNaN(dayOfWeek) ? null : 
-    ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][dayOfWeek];
-}
-
 function App() {
 
     const[reportList, setReportList] = useState([]);
@@ -23,14 +16,14 @@ function App() {
           var dateList = [];
           var dict = {};
           // get all unique dates
-          res.forEach(r => (!dateList.includes(r.stockDate) && getDayOfWeek(r.stockDate) === 'Monday' ? dateList.push(r.stockDate) : null));
+          res.forEach(r => (!dateList.includes(r.stockDate) && r.stockDate.slice(-2) == '01' ? dateList.push(r.stockDate) : null));
           setDates(dateList);
 
           // get total stock of starting week for each product
           for (const r of res) {
             const startDate = Date.parse(startWeek);
             var lastDate = new Date(startDate);
-            lastDate.setDate(lastDate.getDate() + 6);
+            lastDate.setMonth(lastDate.getMonth() + 6);
             const curDate = Date.parse(r.stockDate);
 
             if (curDate <= lastDate && curDate >= startDate) {
@@ -50,7 +43,7 @@ function App() {
           }
           setReportList(list);
         })
-      },[reportList])
+    },[reportList])
 
     const columns = [
       {title: "Stock Info", field: "info"},
@@ -59,8 +52,8 @@ function App() {
 
     return (
         <div className = "App">
-          <label> Starting Week: </label>
-            <select placeholder = "Week" onChange={(event) => {setStartWeek(event.target.value)}}> 
+          <label> Starting Month: </label>
+            <select placeholder = "Month" onChange={(event) => {setStartWeek(event.target.value)}}> 
               {dates.map((val)=>{
                 return (<option key={val} > {val}
                   </option>
