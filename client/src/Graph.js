@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {Bar, Line} from 'react-chartjs-2';
+import {Scatter, Line} from 'react-chartjs-2';
 import {Chart} from 'react-chartjs-2';
 
 import './App.css';
@@ -53,9 +53,9 @@ export default function Graph(){
     // console.log(selectedStock);
     
 
+
     //draw data on graph
     const chart = {
-        labels: dateList,
         datasets: [
             {
             label: 'Amount of Stock Sold',
@@ -64,31 +64,71 @@ export default function Graph(){
             backgroundColor: 'rgba(75,192,192,1)',
             borderColor: 'rgba(0,0,0,1)',
             borderWidth: 2,
-            data: amtList
+            data: [],
             }
         ]
     };
 
+
+        
+        for (var i = 0; i < dateList.length; i++) {
+            chart.datasets[0].data.push(
+              {
+                x: dateList[i], 
+                y: amtList[i]
+              }    
+            )
+          }
+
+          console.log(chart.datasets[0].data);
+    
+
     return (
         <div >
             <div>
-                <select placeholder = "ID Name" onMouseMove={(event) => {setselectedStock(event.target.value)}}> 
+                <select placeholder = "ID Name" onChange={(event) => {setselectedStock(event.target.value)}}> 
                     {stockList.map((val)=>{
                         return (<option key={val} > Stock ID: {val.stockId} Stock Name: {val.stockName} ${val.stockRetailPrice}
                             </option>
                             
-                        );
+                        );  
 
                     })} 
                 </select>
             </div>
-            <Line id={"myChart"}
+            <Scatter id={"myChart"}
                 data={chart}
                 options={{
                     animation: {
                         duration: 0
                     },
                     maintainAspectRatio: true,
+                    scales: {
+                        xAxes: {
+                            ticks: {
+                                userCallback: function(value){
+                                    var label = "";
+                                    switch (parseInt(value))
+                                    {
+                                        case 1:
+                                            label = "Slow";
+                                            break;
+                                        case 2:
+                                            label = "Avg.";
+                                            break;
+                                        case 3:
+                                            label = "Fast";
+                                            break;
+                                        case 4:
+                                            label = "Exp.";
+                                            break;
+                
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                     },
                     title:{
                         display:true,
                         fontSize:20
@@ -99,6 +139,7 @@ export default function Graph(){
                 }
                 }}
             />
+            
         </div>
 
     );
