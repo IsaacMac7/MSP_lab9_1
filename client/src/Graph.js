@@ -70,17 +70,17 @@ export default function Graph(){
     };
 
 
-        
-        for (var i = 0; i < dateList.length; i++) {
+
+        for (var i = 0; i < amtList.length; i++) {
             chart.datasets[0].data.push(
               {
-                x: dateList[i], 
+                x: i, 
                 y: amtList[i]
               }    
             )
           }
 
-          console.log(chart.datasets[0].data);
+        //   console.log(chart.datasets[0].data);
     
 
     return (
@@ -104,27 +104,11 @@ export default function Graph(){
                     },
                     maintainAspectRatio: true,
                     scales: {
-                        xAxes: {
+                        x: {
                             ticks: {
-                                userCallback: function(value){
-                                    var label = "";
-                                    switch (parseInt(value))
-                                    {
-                                        case 1:
-                                            label = "Slow";
-                                            break;
-                                        case 2:
-                                            label = "Avg.";
-                                            break;
-                                        case 3:
-                                            label = "Fast";
-                                            break;
-                                        case 4:
-                                            label = "Exp.";
-                                            break;
-                
-                                    }
-                                    return label;
+                               function(value, index, values){
+                                    console.log(values)
+                                    return values;
                                 }
                             }
                         }
@@ -143,4 +127,5 @@ export default function Graph(){
         </div>
 
     );
+
 }
