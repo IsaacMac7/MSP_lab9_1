@@ -47,7 +47,7 @@ function StockDetails() {
       <div class="py-3 my-3">
         <MaterialTable
           title="Stock Details"
-          style={{ width: "98%", margin: "1%", color: '#6D78C7'}}
+          style={{ width: "90%", margin: "0%", color: '#6D78C7'}}
           data={stockList}
           columns={columns}
           actions={[

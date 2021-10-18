@@ -59,12 +59,12 @@ const NavBar = () => {
             path: '/salesdetails'
         },
         {
-            text: 'WEEKLY SALES',
+            text: 'WEEKLY $',
             icon: <AttachMoneyIcon />,
             path: '/weeklysalesreport'
         },
         {
-            text: 'MONTHLY SALES',
+            text: 'MONTHLY $',
             icon: <AttachMoneyIcon />,
             path: '/monthlysalesreport'
         }
