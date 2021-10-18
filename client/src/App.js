@@ -14,6 +14,7 @@ import Login from "./Login"
 import Graph from "./Graph";
 import "./index.css";
 import { makeStyles } from '@material-ui/core/styles';
+import useToken from './useToken';
 
 
 const useStyles = makeStyles({
@@ -23,16 +24,14 @@ const useStyles = makeStyles({
 
 })
 
-
 export default function App() {
-
-  
     const classes = useStyles();
-    const [token, setToken] = useState();
+    const { token, setToken } = useToken();
 
     if (!token) {
       return <Login setToken={setToken} />
     }
+
     return (
       <div>
         <h2>PHP React App</h2>
