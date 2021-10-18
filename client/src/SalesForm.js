@@ -17,9 +17,8 @@ function App() {
     })
   },[stockList])
 
-
-  
   const addToList = () => {
+    console.log(salesPrice);
     axios.post("http://localhost:8080/salesapi/", {
       salesId: salesId, 
       stockInfo: stockInfo,
@@ -85,5 +84,4 @@ function Price(stockInfo) {
   var splitPrice = splitInfo[1];
   return splitPrice
 }
-
 export default App;

@@ -17,6 +17,17 @@ router.get('/read', async (req,res)=>{
     });
 });
 
+router.get('/readreport', async (req,res)=>{
+    SalesModel.find({}, (err, result) => {
+        if (err) {
+            alert('Error: Reading sales detail in database.\nError message: ' + err);
+            console.log(err);
+            res.send(err);
+        }
+        res.send(result);
+    });
+});
+
 // POST
 router.post('/', async (req, res)=>{
     const salesId = req.body.salesId;

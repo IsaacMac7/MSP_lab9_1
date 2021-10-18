@@ -8,7 +8,9 @@ import {Route, Switch} from "react-router-dom";
 import StockEdit from "./StockEdit";
 import SalesForm from "./SalesForm";
 import SalesDetails from "./SalesDetails";
-import SalesEdit from "./SalesEdit"
+import SalesEdit from "./SalesEdit";
+import WeeklySalesReport from "./WeeklySalesReport";
+import MonthlySalesReport from "./MonthlySalesReport";
 import "./index.css";
 import { makeStyles } from '@material-ui/core/styles';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -40,6 +42,8 @@ export default function App() {
             <Route exact path="/salesdetails" component={SalesDetails} />        
             <Route exact path="/update" component={() => <StockEdit/>} />
             <Route exact path="/salesupdate" component={() => <SalesEdit/>} />
+            <Route exact path="/weeklysalesreport" component = {() => <WeeklySalesReport/>} />
+            <Route exact path="/monthlysalesreport" component = {() => <MonthlySalesReport/>} />
           </Switch>
         </div>
 

@@ -11,6 +11,7 @@ function SalesEdit() {
     const [stockInfo, setStockInfo] = useState("");
     const [stockAmt, setStockAmt] = useState(0);
     const [stockDate, setDate] = useState("");
+    const [salesPrice, setsalesPrice] = useState(0);
 
     const[stockList, setStockList] = useState([]);
 
@@ -28,6 +29,7 @@ function SalesEdit() {
       setStockInfo(location.state.stockInfo);
       setStockAmt(location.state.stockAmt);
       setDate(location.state.stockDate);
+      setsalesPrice(location.state.salesPrice);
   }, [location]);
   
   const editList = () => {
@@ -37,6 +39,7 @@ function SalesEdit() {
             newStockInfo: stockInfo,
             newStockAmt: stockAmt,
             newStockDate: stockDate,
+            newsalesPrice: salesPrice,
           });
     }
     catch (err) {
@@ -67,10 +70,16 @@ function SalesEdit() {
       <input type="date" defaultValue={location.state.stockDate} onChange={(event) => {setDate(event.target.value)}} />
       <label> Amount Sold: </label>
       <input type="text" defaultValue={location.state.stockAmt} onChange={(event) => {setStockAmt(event.target.value)}} />
+      <label> Sale Price: </label>
+      <input type="number" value = {ItemPrice(location.state.salesPrice, location.state.stockAmt) * stockAmt} onMouseMove={(event) => {setsalesPrice(event.target.value)}} />
       <button onClick={editList}> Update Stock </button>
     </div>
   );
 }
 
+function ItemPrice(salesPrice, StockAmount){
+  var itemprice = salesPrice / StockAmount;
+  return itemprice;
+}
 
 export default SalesEdit;

@@ -6,11 +6,11 @@
   align-items: center;
 }
 
-input, button, select{
-  width: 200px;
+input,
+button,
+select {
+  width: 15em;
   height: 30px;
   font-size: 20px;
   margin: 5px;
-
 }
-
