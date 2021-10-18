@@ -17,6 +17,10 @@ const SalesItemSchema = new mongoose.Schema({
     stockDate: {
         type: String,
         default : Date.now()
+    },
+    salesPrice: {
+        type : Number,
+        required : true,
     }
 });
 

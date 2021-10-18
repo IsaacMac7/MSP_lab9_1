@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import alert from "alert";
 import './App.css';
 
 function App() {
@@ -9,10 +8,8 @@ function App() {
   const [stockInfo, setStockInfo] = useState("");
   const [stockDate, setstockDate] = useState("");
   const [stockAmt, setstockAmt] = useState(0);
-
   const[stockList, setStockList] = useState([]);
-
-  const[stockNum, setStockNum] = useState(0);
+  const [salesPrice, setsalesPrice] = useState(0);
 
   useEffect(()=>{
     axios.get('http://localhost:8080/api/read').then((response)=>{
@@ -28,6 +25,7 @@ function App() {
       stockInfo: stockInfo,
       stockDate: stockDate,
       stockAmt: stockAmt,
+      salesPrice: salesPrice,
     });
 
     window.location.href="http://localhost:3000/salesdetails";
@@ -43,18 +41,17 @@ function App() {
         <div class="col-md-7"> 
           <label class="form-label"> Sales ID: </label>
           <input class="form-control" type="number" onChange={(event) => {setSalesId(event.target.value)}} />
-    
-  
         </div>
 
         <div class="col-md-7"> 
           <label class="form-label"> Product: </label>
           <select class="form-select" placeholder = "ID Name" onChange={(event)=> {setStockInfo(event.target.value)}}>
-            {stockList.map((val)=>{
-              return(<option key={val}> {val.stockName}
+          {stockList.map((val)=>{
+            return (<option key={val} > Stock ID: {val.stockId} Stock Name: {val.stockName} ${val.stockRetailPrice}
               </option>
-              );
-            })}
+              
+            );
+          })}
 
           </select>
         </div>
@@ -69,20 +66,24 @@ function App() {
           <input class="form-control" type="text" onChange={(event)=> {setstockAmt(event.target.value)}} />
         </div>
 
+        <div class="col-md-7">
+          <label class="form-label"> Sale Price: </label>
+          <input class="form-control" type="number" value={Price(stockInfo) * stockAmt} onMouseMove={(event) => {setsalesPrice(event.target.value)}} />
+        </div>
 
+        <div class="col-12"> 
+          <button style={{backgroundColor: "#8F99E7"}}class="btn btn-primary" onClick={addToList}> Add Sales </button>
+        </div>
       
       </form>
-
-
-      <div class="col-12"> 
-          <button style={{backgroundColor: "#8F99E7"}}class="btn btn-primary" onClick={addToList}> Add Sales </button>
-      </div>
-        
-     
-
     </div>
-
   );
+}
+
+function Price(stockInfo) {
+  var splitInfo = stockInfo.split('$');
+  var splitPrice = splitInfo[1];
+  return splitPrice
 }
 
 export default App;

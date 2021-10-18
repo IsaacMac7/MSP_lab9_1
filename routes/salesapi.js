@@ -23,16 +23,18 @@ router.post('/', async (req, res)=>{
     const stockInfo = req.body.stockInfo;
     const stockDate = req.body.stockDate;
     const stockAmt = req.body.stockAmt;
-    var itemInStock = 0;
+    const salesPrice = req.body.salesPrice;
+
     const sales = new SalesModel({ 
         salesId: salesId, 
         stockInfo: stockInfo,
         stockDate: stockDate,
         stockAmt: stockAmt,
+        salesPrice: salesPrice,
     });
 
     // get stock Quantity
-    var query = StockModel.findOne({ stockName : stockInfo })
+    var query = StockModel.findOne({ stockId : Number(stockInfo[10]) })
     var quantity = query.select('stockQuantity');
     quantity.exec((err, result) => {
         if (err) {
@@ -42,11 +44,12 @@ router.post('/', async (req, res)=>{
         }
         else {
             //alert("result quantity: " + result.stockQuantity);
+            console.log(result);
             itemInStock = result.stockQuantity;
             if (itemInStock >= Number(stockAmt)) {
                 try {
                     sales.save();
-                    var stockQuery = StockModel.findOne({ stockName : stockInfo });
+                    var stockQuery = StockModel.findOne({ stockId : Number(stockInfo[10]) });
                     stockQuery.exec((err, result) => {
                         if (err) {
                             alert('Error: Reading stock details in database, check console for more');
@@ -85,6 +88,7 @@ router.put('/salesupdate', async (req,res)=>{
     const newStockDate = req.body.newStockDate;
     const newStockAmt = req.body.newStockAmt;
     const salesId = req.body.salesId;
+    const newsalesPrice = req.body.newsalesPrice;
 
     try {
         const stock = await SalesModel.findOne({salesId});
@@ -95,6 +99,7 @@ router.put('/salesupdate', async (req,res)=>{
                 stockInfo: newStockInfo,
                 stockDate: newStockDate,
                 stockAmt: newStockAmt,
+                salesPrice: newsalesPrice,
             }
         )
         await stock.save();
@@ -105,6 +110,7 @@ router.put('/salesupdate', async (req,res)=>{
             updatedStock.stockInfo = newStockInfo;
             updatedStock.stockDate = newStockDate;
             updatedStock.stockAmt = newStockAmt;
+            updatedStock.salesPrice = newsalesPrice;
             updatedStock.save();
             res.send("update");
         });
