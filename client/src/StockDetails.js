@@ -3,6 +3,7 @@ import axios from "axios";
 import './App.css';
 import { useHistory } from "react-router-dom";
 import MaterialTable from 'material-table';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function StockDetails() {
   let history = useHistory();
@@ -42,53 +43,62 @@ function StockDetails() {
   
   ]
 
-  console.log(columns);
   return (
     <div className="App">
-      <MaterialTable 
-        title="Stock Details" 
-        data={stockList}
-        columns={columns}
-        actions={[
-          {
-            icon: 'add',
-            tooltip: 'Add New Stock',
-            isFreeAction: true,
-            onClick: (event, rowData) => {
-              window.location.href="http://localhost:3000/stockform"
-            }
+      <h1 class="container rounded border py-3 my-10">Items In Stock</h1>
+      <div class="py-3 my-3">
+        <MaterialTable
+          title="Stock Details"
+          style={{ width: "90%", margin: "0%", color: '#6D78C7'}}
+          data={stockList}
+          columns={columns}
+          actions={[
+            {
+              icon: 'add',
+              tooltip: 'Add New Stock',
+              isFreeAction: true,
+              onClick: (event, rowData) => {
+                window.location.href="http://localhost:3000/stockform"
+              }
 
-          },
-          {
-            icon: 'edit',
-            tooltip: 'Edit Item',
-            onClick: (event, rowData) => {
-              
-              history.push({pathname: "/update",
-              state: {
-                stockId: rowData.stockId,
-                stockName: rowData.stockName,
-                stockInfo: rowData.stockInfo,
-                stockQuantity: rowData.stockQuantity,
-                stockCost: rowData.stockCost,
-                stockRetailPrice: rowData.stockRetailPrice}
-              })
-            }
-          },
-          {
-            icon: 'delete',
-            tooltip: 'Delete Stock',
-            onClick: (event, rowData) => {
-              deleteStock(rowData._id)
-            }
+            },
+            {
+              icon: 'edit',
+              tooltip: 'Edit Item',
+              onClick: (event, rowData) => {
+                
+                history.push({pathname: "/update",
+                state: {
+                  stockId: rowData.stockId,
+                  stockName: rowData.stockName,
+                  stockInfo: rowData.stockInfo,
+                  stockQuantity: rowData.stockQuantity,
+                  stockCost: rowData.stockCost,
+                  stockRetailPrice: rowData.stockRetailPrice}
+                })
+              }
+            },
+            {
+              icon: 'delete',
+              tooltip: 'Delete Stock',
+              onClick: (event, rowData) => {
+                deleteStock(rowData._id)
+              }
 
-          },
-        ]}
-        options={{
-          actionsColumnIndex: -1
-
-        }}
-      />
+            },
+          ]}
+          options={{
+            actionsColumnIndex: -1,
+            headerStyle: {
+              backgroundColor: '#8f99e7',
+              color: 'white',
+              fontWeight: 'bold',
+              borderTopWidth: 2,
+              borderColor: 'white'
+            }
+          }}
+        />
+      </div>
     </div>
   );
 }

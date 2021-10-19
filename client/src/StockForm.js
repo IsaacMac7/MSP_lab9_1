@@ -1,6 +1,7 @@
 import React, { useState} from "react";
 import axios from "axios";
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function App() {
@@ -30,24 +31,57 @@ function App() {
 
 
   return (
-    <div className="App">
-      <h1> ADD STOCK ITEM </h1>
-   
-      <label> Stock ID: </label>
-      <input type="number" onChange={(event) => {setStockId(event.target.value)}} />
-      <label> Stock Name: </label>
-      <input type="text" onChange={(event) => {setStockName(event.target.value)}} />
-      <label> Stock Info: </label>
-      <input type="text" onChange={(event) => {setStockInfo(event.target.value)}} />
-      <label> Stock Quantity: </label>
-      <input type="text" onChange={(event) => {setStockQuantity(event.target.value)}} />
-      <label> Stock Cost: </label>
-      <input type="text" onChange={(event) => {setStockCost(event.target.value)}} />
-      <label> Stock Retail Price: </label>
-      <input type="text" onChange={(event) => {setStockRetailPrice(event.target.value)}} />
-      <button onClick={addToList}> Add Stock </button>
+    <div className="Forms">
+    <div className="row g-3 align-items-center">
+      <div className="FormHeading">
+        <h1 class="container rounded border py-3 my-10">ADD NEW STOCK ITEM</h1>
+       </div>
+    
+      
+      <form style={{color: "#8F99E7"}}> 
+        <div class="col-md-7"> 
+          <label class="form-label"> Stock ID: </label>
+          <input class="form-control" type="number" onChange={(event) => {setStockId(event.target.value)}} />
+    
+  
+
+        </div>
+        <div class="col-md-7"> 
+          <label class="form-label"> Stock Name: </label>
+          <input class="form-control" type="text" onChange={(event) => {setStockName(event.target.value)}} />
+        </div>
+
+        <div class="col-md-7"> 
+          <label class="form-label"> Stock Info: </label>
+          <input class="form-control" type="text" onChange={(event) => {setStockInfo(event.target.value)}} />
+        </div>
+
+        <div class="col-md-7"> 
+          <label class="form-label"> Stock Quantity: </label>
+          <input class="form-control" type="text" onChange={(event) => {setStockQuantity(event.target.value)}} />
+        </div>
+
+        <div class="col-md-7"> 
+          <label class="form-label"> Stock Cost: </label>
+          <input class="form-control" type="text" onChange={(event) => {setStockCost(event.target.value)}} />
+        </div>
+
+        <div class="col-md-7"> 
+          <label class="form-label"> Stock Retail Price: </label>
+          <input class="form-control" type="text" onChange={(event) => {setStockRetailPrice(event.target.value)}} />
+
+        </div> 
+
+      
+      </form>
 
 
+      <div class="col-12"> 
+          <button style={{backgroundColor: "#8F99E7"}}class="btn btn-primary h-100" onClick={addToList}> Add Stock </button>
+      </div>
+
+
+    </div>
     </div>
 
     

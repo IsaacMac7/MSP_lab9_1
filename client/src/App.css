@@ -6,14 +6,15 @@
   align-items: center;
 }
 
-input, button, select{
+input,
+button,
+select {
   width: 15em;
   height: 30px;
   font-size: 20px;
   margin: 5px;
-
 }
-#select{
+#select {
   width: 20em;
   height: 30px;
   font-size: 20px;
@@ -22,5 +23,13 @@ input, button, select{
 
 #myChart {
   width: 1000px;
-  height:600px
+  height: 600px;
+}
+
+.FormHeading {
+  text-align: center;
+}
+
+.Forms {
+  padding-left: 10em;
 }

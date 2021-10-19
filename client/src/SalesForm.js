@@ -33,29 +33,52 @@ function App() {
 
 
   return (
-    <div className="App" >
-      <h1> ADD SALES TRANSACTION </h1>
-      <label> Sales ID: </label>
-      <input type="number" onChange={(event) => {setSalesId(event.target.value)}} />
-      <label> Product: </label>
-      <select placeholder = "ID Name" onMouseMove={(event) => {setStockInfo(event.target.value)}}> 
-        {stockList.map((val)=>{
-          return (<option key={val} > Stock ID: {val.stockId} Stock Name: {val.stockName} ${val.stockRetailPrice}
-            </option>
-            
-          );
+    <div className="Forms">
+    <div className="row g-3 align-items-center">
+      <div className="FormHeading">
+       <h1 class="container rounded border py-3 my-10">ADD NEW SALES RECORD</h1>
+      </div>
 
-        })} 
-      </select>
+      <form style={{color: "#8F99E7"}}> 
+        <div class="col-md-7"> 
+          <label class="form-label"> Sales ID: </label>
+          <input class="form-control" type="number" onChange={(event) => {setSalesId(event.target.value)}} />
+        </div>
 
-      <label> Sale Date: </label>
-      <input type="date" onChange={(event) => {setstockDate(event.target.value)}} />
-      <label> Stock Quantity: </label>
-      <input type="text" onChange={(event) => {setstockAmt(event.target.value)}} />
-      <label> Sale Price: </label>
-      <input type="number" value={Price(stockInfo) * stockAmt} onMouseMove={(event) => {setsalesPrice(event.target.value)}} 
-       />
-      <button onClick={addToList}> Add Sales </button>
+        <div class="col-md-7"> 
+          <label class="form-label"> Product: </label>
+          <select class="form-select h-100" placeholder = "ID Name" onChange={(event)=> {setStockInfo(event.target.value)}}>
+          {stockList.map((val)=>{
+            return (<option key={val} > Stock ID: {val.stockId} Stock Name: {val.stockName} ${val.stockRetailPrice}
+              </option>
+              
+            );
+          })}
+
+          </select>
+        </div>
+
+        <div class="col-md-7"> 
+          <label class="form-label"> Sale Date: </label>
+          <input class="form-control" type="date" onChange={(event)=> {setstockDate(event.target.value)}}  />
+        </div>
+
+        <div class="col-md-7"> 
+          <label class="form-label"> Stock Quantity: </label>
+          <input class="form-control" type="text" onChange={(event)=> {setstockAmt(event.target.value)}} />
+        </div>
+
+        <div class="col-md-7">
+          <label class="form-label"> Sale Price: </label>
+          <input class="form-control" type="number" value={Price(stockInfo) * stockAmt} onMouseMove={(event) => {setsalesPrice(event.target.value)}} />
+        </div>
+
+        <div class="col-12"> 
+          <button style={{backgroundColor: "#8F99E7"}}class="btn btn-primary" onClick={addToList}> Add Sales </button>
+        </div>
+      
+      </form>
+    </div>
     </div>
 
   );

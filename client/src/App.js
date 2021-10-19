@@ -10,9 +10,11 @@ import SalesForm from "./SalesForm";
 import SalesDetails from "./SalesDetails";
 import SalesEdit from "./SalesEdit";
 import WeeklySalesReport from "./WeeklySalesReport";
+import MonthlySalesReport from "./MonthlySalesReport";
 import Graph from "./Graph";
 import "./index.css";
 import { makeStyles } from '@material-ui/core/styles';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const useStyles = makeStyles({
@@ -31,8 +33,6 @@ export default function App() {
 
     return (
       <div>
-        <h2>PHP React App</h2>
-
         <div className = {classes.container}>
           <NavBar />
           <Switch>
@@ -44,6 +44,7 @@ export default function App() {
             <Route exact path="/update" component={() => <StockEdit/>} />
             <Route exact path="/salesupdate" component={() => <SalesEdit/>} />
             <Route exact path="/weeklysalesreport" component = {() => <WeeklySalesReport/>} />
+            <Route exact path="/monthlysalesreport" component = {() => <MonthlySalesReport/>} />
             <Route exact path="/graph" component = {() => <Graph/>} />
           </Switch>
         </div>
