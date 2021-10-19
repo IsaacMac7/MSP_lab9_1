@@ -9,7 +9,6 @@ function byID(salesList, selectedStock){
     const filteredData = salesList.filter(function(item){
         return item.stockInfo  == selectedStock;
     })
-    // console.log("filtered", filteredData);
     return filteredData;
 }
 
@@ -31,15 +30,11 @@ export default function Graph(){
               empDate.push(dataObj.stockDate); //dataObj sees it as individual key-value pairs, must be put into an array first (in order)
               empAmt.push(dataObj.stockAmt);
           }
-        //   console.log("empDate", empDate);
-        //   console.log("empAmt", empAmt);
+
           setdateList(empDate); //once dataObj is in an array, put it in a list
           setamtList(empAmt);
         })
     },[salesList], [dateList], [amtList])
-    // console.log("sales api", salesList);
-    // console.log("stock date", dateList);
-    // console.log("amtList", amtList);
 
     //fetch stock data
     useEffect(()=>{
@@ -47,19 +42,12 @@ export default function Graph(){
           setStockList(response.data);
         })
       },[stockList])
-    //   console.log("stock list", stockList);
-    
-    //check selected stock
-    // console.log(selectedStock);
-
 
     var total = dateList.length;
     const iArray = [];
     for (var i = 0; i < total; i++) {
         iArray.push(i);
     }
-    // console.log("iArray", iArray);
-    // console.log("amt array", amtList.length);
     
     var regLine = regressionMaker(iArray, amtList);
     function regressionMaker(values_x, values_y) {
@@ -100,16 +88,16 @@ export default function Graph(){
             count++;
         }
     
-        /*
-         * Calculate m and b for the formular:
-         * y = x * m + b
-         */
+        
+        //  Calculate m and b for the formular:
+        //  y = x * m + b
+        
         var m = (count*sum_xy - sum_x*sum_y) / (count*sum_xx - sum_x*sum_x);
         var b = (sum_y/count) - (m*sum_x)/count;
     
-        /*
-         * We will make the x and y result line now
-         */
+        
+        //  We will make the x and y result line now
+        
         var result_values_x = [];
         var result_values_y = [];
     
@@ -122,10 +110,6 @@ export default function Graph(){
     
         return result_values_x, result_values_y;
     }
-
-
-
-    // console.log("regression array", regLine.length);
 
     //draw data on graph
     const chart = {
@@ -153,6 +137,7 @@ export default function Graph(){
         
     };
 
+    //splits the stock info to get the stock name
     function sName(selectedStock) {
         var splitInfo = selectedStock.split(' ');
         var splitName = splitInfo[5];
@@ -161,31 +146,45 @@ export default function Graph(){
 
     var splitName = sName(selectedStock);
 
+    //calculates the gradient
     function gradientCalculator(regLine){
         var a = regLine[regLine.length-1] - regLine[0];
         var b = iArray[iArray.length-1] - iArray[0];
         var gradient = a/b;
-        // console.log("iArray length", iArray.length)
-        // console.log("a", a);
-        // console.log("b", b);
         return gradient
     }
+
     var gradient = gradientCalculator(regLine);
+    
+    //produces the sentence for analysis
+    function sentenceMaker(){
+        var buyOrNot = "";
+        var sentence = "";
 
-
-    var buyOrNot = "";
-    if(gradient>0){
-        buyOrNot = "it is in demand"
-    } else {
-        buyOrNot = "it is not in demand"
+        if(gradient>0){
+            buyOrNot = "it is in demand"
+        } else {
+            buyOrNot = "it is not in demand"
+        }
+        
+        if (isNaN(gradient) == true) {
+            return sentence = "Stock does not have enough data to produce an analysis";
+        } else if(typeof splitName !== 'undefined'){
+            return sentence = splitName + " has a gradient of " + gradient + " , hence " + buyOrNot + ".";
+        } else {
+            return sentence = "Please select a stock to see analysis";
+        } 
+    
     }
+    
+    var analysis = sentenceMaker();
 
     return (
         <div >
             <h1>Graph</h1>
             <p>Below shows the total amount sold in the blue line and a regression of sales in the red line. A decending regression line suggests the product is 
-                not in demand, while an ascending regression line suggests the product is in demand. If the regression line is neither 
-                descending nor ascending, the product is selling at a steady rate. Please select a product to view graph.</p>
+                not in demand, while an ascending regression line suggests the product is in demand. If a stock is in demand, it is adviced to order more of this
+                product. Please select a product to view graph.</p>
             <div>
                 <label> Choose Product: </label>
                 <select placeholder = "ID Name" onChange={(event) => {setselectedStock(event.target.value)}}> 
@@ -218,7 +217,7 @@ export default function Graph(){
             />
             <div>
                 <h3>Analysis:</h3>
-                <p>{splitName} has a gradient of {gradient}, hence {buyOrNot}.</p>
+                <p>{analysis}</p>
             </div>
         </div>
 
