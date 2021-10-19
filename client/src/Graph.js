@@ -118,7 +118,7 @@ export default function Graph(){
             {
                 label: 'Amount of Stock Sold',
                 fill: false,
-                lineTension: 0.5,
+                lineTension: 0,
                 backgroundColor: 'rgba(75,192,192,1)',
                 borderColor: 'rgba(75,192,192,1)',
                 borderWidth: 1,
@@ -127,7 +127,7 @@ export default function Graph(){
             {
                 label: 'Regression Line',
                 fill: false,
-                lineTension: 0.5,
+                lineTension: 0,
                 backgroundColor: 'rgb(255,0,0)',
                 borderColor: 'rgb(255,0,0)',
                 borderWidth: 1,
