@@ -8,14 +8,12 @@ import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
-
 const useStyles = makeStyles({
     drawer: {
       width: '200px'
     }
   
   })
-  
 
 const NavBar = () => {
     const classes = useStyles();

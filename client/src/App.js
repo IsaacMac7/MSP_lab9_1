@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect} from "react";
 import './App.css';
 import Home from "./Home";
 import StockForm from "./StockForm";
@@ -17,6 +17,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import useToken from './useToken';
 
 
+
 const useStyles = makeStyles({
   container: {
     display: 'flex'
@@ -24,9 +25,9 @@ const useStyles = makeStyles({
 
 })
 
-export default function App() {
+export default function Main() {
     const classes = useStyles();
-    const { token, setToken } = useToken();
+    const {token, setToken} = useToken();
 
     if (!token) {
       return <Login setToken={setToken} />
@@ -37,9 +38,9 @@ export default function App() {
         <h2>PHP React App</h2>
 
         <div className = {classes.container}>
+          
           <NavBar />
           <Switch>
-            <Route exact path="/" component={Home} /> 
             <Route exact path="/stockform" component={StockForm} />
             <Route exact path="/stockdetails" component={StockDetails} />
             <Route exact path="/salesform" component={SalesForm} />
@@ -48,7 +49,6 @@ export default function App() {
             <Route exact path="/salesupdate" component={() => <SalesEdit/>} />
             <Route exact path="/weeklysalesreport" component = {() => <WeeklySalesReport/>} />
             <Route exact path="/graph" component = {() => <Graph/>} />
-            <Route exact path="/login" component={Login} />
           </Switch>
         </div>
 
