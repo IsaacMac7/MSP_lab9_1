@@ -36,7 +36,7 @@ function App() {
     <div className="Forms">
     <div className="row g-3 align-items-center">
       <div className="FormHeading">
-       <h1 class="container rounded border py-3 my-10">ADD NEW SALES RECORD</h1>
+       <h1 class="container rounded border py-3 my-10" style={{backgroundColor: '#8F99E7', color: 'white'}}>ADD NEW SALES RECORD</h1>
       </div>
 
       <form style={{color: "#8F99E7"}}> 
@@ -73,11 +73,13 @@ function App() {
           <input class="form-control" type="number" value={Price(stockInfo) * stockAmt} onMouseMove={(event) => {setsalesPrice(event.target.value)}} />
         </div>
 
-        <div class="col-md-7"> 
-          <button style={{backgroundColor: "#8F99E7"}}class="btn btn-primary" onClick={addToList}> Add Sales </button>
-        </div>
       
       </form>
+
+      
+      <div class="col-md-12"> 
+          <button style={{backgroundColor: "#8F99E7"}}class="btn btn-primary" onClick={addToList}> Add Sales </button>
+      </div>
     </div>
     </div>
 

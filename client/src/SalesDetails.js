@@ -42,10 +42,10 @@ function SalesDetails() {
 
   return (
     <div className="App">
-      <h1 class="container rounded border py-3 my-10">Items Sold</h1>
+      <h1 class="container rounded border py-3 my-10" style={{backgroundColor: '#8F99E7', color: 'white'}}>Items Sold</h1>
       <MaterialTable 
         title="Sales Details"
-        style={{ width: "90%", margin: "0%", color: '#6D78C7'}}
+        style={{ width: "65em", margin: "0%", color: '#8F99E7'}} 
         data={salesList}
         columns={columns}
         actions={[

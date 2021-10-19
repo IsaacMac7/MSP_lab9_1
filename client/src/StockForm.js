@@ -34,7 +34,7 @@ function App() {
     <div className="Forms">
     <div className="row g-3 align-items-center">
       <div className="FormHeading">
-        <h1 class="container rounded border py-3 my-10">ADD NEW STOCK ITEM</h1>
+        <h1 class="container rounded border py-3 my-10" style={{backgroundColor: '#8F99E7', color: 'white'}}>ADD NEW STOCK ITEM</h1>
        </div>
     
       
@@ -69,11 +69,13 @@ function App() {
 
         </div> 
 
-        <div class="col-md-7"> 
-          <button style={{backgroundColor: "#8F99E7"}}class="btn btn-primary h-100" onClick={addToList}> Add Stock </button>
-        </div>
-
+      
       </form>
+
+      <div class="col-md-12"> 
+          <button style={{backgroundColor: "#8F99E7"}}class="btn btn-primary h-100" onClick={addToList}> Add Stock </button>
+      </div>
+
 
 
       

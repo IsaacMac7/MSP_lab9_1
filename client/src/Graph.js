@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {Bar, Line} from 'react-chartjs-2';
 import {Chart} from 'react-chartjs-2';
-
 import './App.css';
 
 function byID(salesList, selectedStock){
@@ -180,14 +179,15 @@ export default function Graph(){
     var analysis = sentenceMaker();
 
     return (
-        <div >
-            <h1>Graph</h1>
+        <div className="Graph">
+            <h1 class="container rounded border py-3 my-10" style={{backgroundColor: '#8F99E7', color: 'white'}}>PREDICTION GRAPH</h1>
             <p>Below shows the total amount sold in the blue line and a regression of sales in the red line. A decending regression line suggests the product is 
                 not in demand, while an ascending regression line suggests the product is in demand. If a stock is in demand, it is adviced to order more of this
                 product. Please select a product to view graph.</p>
             <div>
-                <label> Choose Product: </label>
-                <select placeholder = "ID Name" onChange={(event) => {setselectedStock(event.target.value)}}> 
+            <div class="input-group mb-3">
+                <label class="input-group-text"> Choose Product: </label>
+                <select class="form-select h-100" placeholder = "ID Name" onChange={(event) => {setselectedStock(event.target.value)}}> 
                     {stockList.map((val)=>{
                         return (<option key={val} > Stock ID: {val.stockId} Stock Name: {val.stockName} ${val.stockRetailPrice}
                             </option>
@@ -196,6 +196,7 @@ export default function Graph(){
 
                     })} 
                 </select>
+                </div>
             </div>
             <Line id={"myChart"}
                 data={chart}
@@ -207,6 +208,7 @@ export default function Graph(){
                     title:{
                         display:true,
                         fontSize:20
+                   
                 },
                 legend:{
                     display:true,

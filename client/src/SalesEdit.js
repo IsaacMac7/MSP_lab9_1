@@ -55,23 +55,52 @@ function SalesEdit() {
 
 
   return (
-    <div className="App">
-      <h1> EDIT SALES RECORDS</h1>
-      <label> Sales ID: </label>
-      <input type="number" value={location.state.salesId} />
-      <label> Stock Info: </label>
-      <select value={location.state.stockInfo} onChange={(event)=> {setStockInfo(event.target.value)}}> 
-      {stockList.map((val)=>{
-        return(<option key={val}> {val.stockId} {val.stockName} </option>);
-      })}
-      </select>
-      <label> Sale Date: </label>
-      <input type="date" defaultValue={location.state.stockDate} onChange={(event) => {setDate(event.target.value)}} />
-      <label> Amount Sold: </label>
-      <input type="text" defaultValue={location.state.stockAmt} onChange={(event) => {setStockAmt(event.target.value)}} />
-      <label> Sale Price: </label>
-      <input type="number" value = {ItemPrice(location.state.salesPrice, location.state.stockAmt) * stockAmt} onMouseMove={(event) => {setsalesPrice(event.target.value)}} />
-      <button onClick={editList}> Update Stock </button>
+    <div className="Forms">
+      <div className="row g-3 align-items-center">
+      <div className="FormHeading">
+       <h1 class="container rounded border py-3 my-10" style={{backgroundColor: '#8F99E7', color: 'white'}}>ADD NEW SALES RECORD</h1>
+      </div>
+
+
+      <form style={{color: "#8F99E7"}}> 
+      <div class="col-md-7">
+        <label class="form-label" style={{color:"#8F99E7"}}> Sales ID: </label>
+        <input class="form-control" type="number" value={location.state.salesId} />
+      </div>
+
+      <div class="col-md-7">
+        <label class="form-label"> Stock Info: </label>
+        <select class="form-select h-100" value={location.state.stockInfo} onChange={(event)=> {setStockInfo(event.target.value)}}> 
+        {stockList.map((val)=>{
+          return(<option key={val}> {val.stockId} {val.stockName} </option>);
+        })}
+        </select>
+      </div>
+
+      <div class="col-md-7">
+        <label class="form-label"> Sale Date: </label>
+        <input class="form-control" type="date" defaultValue={location.state.stockDate} onChange={(event) => {setDate(event.target.value)}} />
+      </div>
+
+      <div class="col-md-7">
+        <label class="form-label"> Amount Sold: </label>
+        <input class="form-control" type="text" defaultValue={location.state.stockAmt} onChange={(event) => {setStockAmt(event.target.value)}} />
+      </div>
+
+      <div class="col-md-7">
+        <label class="form-label"> Sale Price: </label>
+        <input class="form-control" type="number" value = {ItemPrice(location.state.salesPrice, location.state.stockAmt) * stockAmt} onMouseMove={(event) => {setsalesPrice(event.target.value)}} />
+      </div>
+
+
+      </form>
+
+      <div class="col-12"> 
+      <button style={{backgroundColor: "#8F99E7"}}class="btn btn-primary h-100" onClick={editList}> Update Stock </button>
+      </div>
+
+
+    </div>
     </div>
   );
 }

@@ -10,6 +10,7 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import Divider from '@mui/material/Divider';
 import { Typography } from '@mui/material';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import PollIcon from '@mui/icons-material/Poll';
 
 
 const useStyles = makeStyles({
@@ -65,7 +66,7 @@ const NavBar = () => {
         },
         {
             text: 'GRAPH',
-            icon: <AttachMoneyIcon style={{color: 'white'}}/>,
+            icon: <PollIcon style={{color: 'white'}}/>,
             path: '/graph'
         }
     ]

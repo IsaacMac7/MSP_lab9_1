@@ -1,9 +1,11 @@
 .App {
-  text-align: center;
+  
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-top: 1em;
+  padding-left: 8em;
 }
 
 input,
@@ -15,9 +17,20 @@ select {
 }
 
 .FormHeading {
+  padding-top: 1em;
   text-align: center;
 }
 
 .Forms {
   padding-left: 10em;
+}
+
+.Graph {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1em;
+  text-align: center;
+
 }

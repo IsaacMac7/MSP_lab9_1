@@ -59,7 +59,7 @@ function App() {
 
     return (
         <div className = "App">
-          <h1 class="container rounded border py-3 my-10">WEEKLY SALES REPORT </h1>
+          <h1 class="container rounded border py-3 my-10" style={{backgroundColor: '#8F99E7', color: 'white'}}>WEEKLY SALES REPORT </h1>
           <div className="selectItem">
           <div class="input-group mb-3">
 
@@ -80,7 +80,7 @@ function App() {
             </div>
           <MaterialTable 
             title="Sales Report"
-            style={{ width: "90%", margin: "0%", color: '#6D78C7'}} 
+            style={{ width: "65em", margin: "0%", color: '#8F99E7'}}  
             data={reportList}
             columns={columns}
             options={{
