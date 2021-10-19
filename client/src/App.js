@@ -35,7 +35,7 @@ export default function App() {
         <div className = {classes.container} >
           <NavBar/>
           <Switch>
-            <Route exact path="/" component={Home} /> 
+            <Route exact path="/" component={SalesDetails} /> 
             <Route exact path="/stockform" component={StockForm} />
             <Route exact path="/stockdetails" component={StockDetails} />
             <Route exact path="/salesform" component={SalesForm} />

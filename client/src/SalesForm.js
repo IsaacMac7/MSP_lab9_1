@@ -33,8 +33,11 @@ function App() {
 
   return (
 
+    <div className="Forms">
     <div className="row g-3 align-items-center">
+      <div className="FormHeading">
        <h1 class="container rounded border py-3 my-10">ADD NEW SALES RECORD</h1>
+      </div>
 
       <form style={{color: "#8F99E7"}}> 
         <div class="col-md-7"> 
@@ -44,7 +47,7 @@ function App() {
 
         <div class="col-md-7"> 
           <label class="form-label"> Product: </label>
-          <select class="form-select" placeholder = "ID Name" onChange={(event)=> {setStockInfo(event.target.value)}}>
+          <select class="form-select h-100" placeholder = "ID Name" onChange={(event)=> {setStockInfo(event.target.value)}}>
           {stockList.map((val)=>{
             return (<option key={val} > Stock ID: {val.stockId} Stock Name: {val.stockName} ${val.stockRetailPrice}
               </option>
@@ -75,6 +78,7 @@ function App() {
         </div>
       
       </form>
+    </div>
     </div>
   );
 }

@@ -9,6 +9,7 @@ import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import Divider from '@mui/material/Divider';
 import { Typography } from '@mui/material';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 
 
 const useStyles = makeStyles({
@@ -33,11 +34,7 @@ const NavBar = () => {
    
 
     const itemList = [
-        {
-            text: 'Home',
-            icon: <HomeIcon style={{color: 'white'}}/>,
-            path: '/'
-        },
+       
         {
             text: 'ADD STOCK',
             icon: <AddBusinessIcon style={{color: 'white'}}/>,
@@ -60,12 +57,12 @@ const NavBar = () => {
         },
         {
             text: 'WEEKLY $',
-            icon: <AttachMoneyIcon />,
+            icon: <TrendingUpIcon style={{color: 'white'}}/>,
             path: '/weeklysalesreport'
         },
         {
             text: 'MONTHLY $',
-            icon: <AttachMoneyIcon />,
+            icon: <TrendingUpIcon style={{color: 'white'}}/>,
             path: '/monthlysalesreport'
         }
     ]

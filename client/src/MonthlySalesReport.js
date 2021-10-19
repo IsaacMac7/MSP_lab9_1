@@ -52,8 +52,11 @@ function App() {
 
     return (
         <div className = "App">
-          <label> Starting Month: </label>
-            <select placeholder = "Month" onChange={(event) => {setStartWeek(event.target.value)}}> 
+          <h1 class="container rounded border py-3 my-10">MONTHLY SALES REPORT </h1>
+          <div className="selectItem">
+            <div class="input-group mb-3">
+          <label class="input-group-text"> Starting Month: </label>
+            <select class="form-select h-100" placeholder = "Month" onChange={(event) => {setStartWeek(event.target.value)}}> 
               {dates.map((val)=>{
                 return (<option key={val} > {val}
                   </option>
@@ -62,13 +65,23 @@ function App() {
 
               })} 
             </select>
+            </div>
+            </div>
           <MaterialTable 
             title="Sales Report" 
+            style={{ width: "90%", margin: "0%", color: '#6D78C7'}} 
             data={reportList}
             columns={columns}
             options={{
               exportButton: true,
-              exportAllData: true
+              exportAllData: true,
+              headerStyle: {
+                backgroundColor: '#8f99e7',
+                color: 'white',
+                fontWeight: 'bold',
+                borderTopWidth: 2,
+                borderColor: 'white'
+              }
             }}
             actions={[
               {

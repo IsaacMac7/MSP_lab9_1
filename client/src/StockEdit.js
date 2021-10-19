@@ -51,13 +51,13 @@ function StockEdit() {
 
 
   return (
-    <div>
-      <form style={{color: "#8F99E7"}}>
-
-        
-        <div className="row g-3 align-items-center needs-validation">
-        <h1 class="container rounded border py-3 my-10">EDIT NEW STOCK ITEM</h1>
-
+    
+      <div className="Forms">
+      <div className="row g-3 align-items-center">
+        <div className="FormHeading">
+        <h1 class="container rounded border py-3 my-10">EDIT STOCK INFO</h1>
+      </div>
+     
           <form style={{color: "#8F99E7"}}> 
             <div class="col-md-7">
               <label class="form-label"> Stock ID: </label>
@@ -94,17 +94,13 @@ function StockEdit() {
           </form>
 
           <div class="col-12"> 
-            <button style={{backgroundColor: "#8F99E7"}} class="btn btn-primary" onClick={editList}> Update Stock </button>
+            <button style={{backgroundColor: "#8F99E7"}} class="btn btn-primary h-100" onClick={editList}> Update Stock </button>
           </div>
 
           
-          
+  
       
-        </div>
-          
-      
-
-      </form>
+    </div>
     </div>
 
   );
