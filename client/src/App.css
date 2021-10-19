@@ -7,23 +7,11 @@
 }
 
 input,
-button,
 select {
   width: 15em;
   height: 30px;
   font-size: 20px;
   margin: 5px;
-}
-#select {
-  width: 20em;
-  height: 30px;
-  font-size: 20px;
-  margin: 5px;
-}
-
-#myChart {
-  width: 1000px;
-  height: 600px;
 }
 
 .FormHeading {

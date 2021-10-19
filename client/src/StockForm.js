@@ -42,9 +42,6 @@ function App() {
         <div class="col-md-7"> 
           <label class="form-label"> Stock ID: </label>
           <input class="form-control" type="number" onChange={(event) => {setStockId(event.target.value)}} />
-    
-  
-
         </div>
         <div class="col-md-7"> 
           <label class="form-label"> Stock Name: </label>
@@ -72,13 +69,14 @@ function App() {
 
         </div> 
 
-      
+        <div class="col-md-7"> 
+          <button style={{backgroundColor: "#8F99E7"}}class="btn btn-primary h-100" onClick={addToList}> Add Stock </button>
+        </div>
+
       </form>
 
 
-      <div class="col-12"> 
-          <button style={{backgroundColor: "#8F99E7"}}class="btn btn-primary h-100" onClick={addToList}> Add Stock </button>
-      </div>
+      
 
 
     </div>

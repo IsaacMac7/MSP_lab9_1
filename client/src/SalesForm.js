@@ -73,7 +73,7 @@ function App() {
           <input class="form-control" type="number" value={Price(stockInfo) * stockAmt} onMouseMove={(event) => {setsalesPrice(event.target.value)}} />
         </div>
 
-        <div class="col-12"> 
+        <div class="col-md-7"> 
           <button style={{backgroundColor: "#8F99E7"}}class="btn btn-primary" onClick={addToList}> Add Sales </button>
         </div>
       
