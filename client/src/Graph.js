@@ -116,13 +116,13 @@ export default function Graph(){
         labels: dateList,
         datasets: [
             {
-            label: 'Amount of Stock Sold',
-            fill: false,
-            lineTension: 0.5,
-            backgroundColor: 'rgba(75,192,192,1)',
-            borderColor: 'rgba(75,192,192,1)',
-            borderWidth: 1,
-            data: amtList
+                label: 'Amount of Stock Sold',
+                fill: false,
+                lineTension: 0.5,
+                backgroundColor: 'rgba(75,192,192,1)',
+                borderColor: 'rgba(75,192,192,1)',
+                borderWidth: 1,
+                data: amtList
             },
             {
                 label: 'Regression Line',
@@ -132,7 +132,7 @@ export default function Graph(){
                 borderColor: 'rgb(255,0,0)',
                 borderWidth: 1,
                 data: regLine
-                },
+            },
         ]
         
     };
@@ -166,13 +166,13 @@ export default function Graph(){
         } else {
             buyOrNot = "it is not in demand"
         }
-        
+
         if (isNaN(gradient) == true) {
             return sentence = "Stock does not have enough data to produce an analysis";
         } else if(typeof splitName !== 'undefined'){
-            return sentence = splitName + " has a gradient of " + gradient + " , hence " + buyOrNot + ".";
+            return sentence = "The regression of " + splitName + " has a gradient of " + gradient + ", hence " + buyOrNot + ".";
         } else {
-            return sentence = "Please select a stock to see analysis";
+            return sentence = "Please select a stock to view analysis";
         } 
     
     }
