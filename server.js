@@ -49,6 +49,6 @@ require("./config/passport")(passport);
 app.use(morgan('tiny'));
 app.use('/api', routes);
 app.use('/salesapi', salesroutes);
-app.use('/usersapi', usersroutes);
+app.use('./usersapi', usersroutes);
 
 app.listen(PORT, console.log(`Server is starting at ${PORT}`));
