@@ -33,14 +33,14 @@ function App() {
             lastDate.setDate(lastDate.getDate() + 6);
             const curDate = Date.parse(r.stockDate);
 
-            if (curDate <= lastDate && curDate >= startDate) {
-              if (dict[r.stockInfo] === undefined) {
-                dict[r.stockInfo] = Number(r.stockAmt);
-              }
-              else {
-                dict[r.stockInfo] = Number(dict[r.stockInfo]) + Number(r.stockAmt);
-              }
-            }
+            // if (curDate <= lastDate && curDate >= startDate) {
+            //   if (dict[r.stockInfo] === undefined) {
+            //     dict[r.stockInfo] = Number(r.stockAmt);
+            //   }
+            //   else {
+            //     dict[r.stockInfo] = Number(dict[r.stockInfo]) + Number(r.stockAmt);
+            //   }
+            // }
           }
           
           // make a list
