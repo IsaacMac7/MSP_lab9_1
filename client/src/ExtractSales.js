@@ -9,7 +9,7 @@ function App(startDay) {
         for (const r of res) {
             const startDate = Date.parse(startDay);
             var lastDate = new Date(startDate);
-            lastDate.setMonth(lastDate.getMonth() + 6);
+            lastDate.setWeek(lastDate.getWeek() + 6);
             const curDate = Date.parse(r.stockDate);
 
             if (curDate < lastDate && curDate >= startDate) {

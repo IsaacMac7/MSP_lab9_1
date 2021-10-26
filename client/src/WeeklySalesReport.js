@@ -27,21 +27,7 @@ function App() {
           setDates(dateList);
 
           // get total stock of starting week for each product
-          for (const r of res) {
-            const startDate = Date.parse(startWeek);
-            var lastDate = new Date(startDate);
-            lastDate.setDate(lastDate.getDate() + 6);
-            const curDate = Date.parse(r.stockDate);
-
-            if (curDate <= lastDate && curDate >= startDate) {
-              if (dict[r.stockInfo] === undefined) {
-                dict[r.stockInfo] = Number(r.stockAmt);
-              }
-              else {
-                dict[r.stockInfo] = Number(dict[r.stockInfo]) + Number(r.stockAmt);
-              }
-            }
-          }
+          dict = processData(res, startWeek);
           
           // make a list
           for (const [key, value] of Object.entries(dict)) {

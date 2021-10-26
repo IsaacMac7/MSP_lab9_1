@@ -25,13 +25,13 @@ function SumOfList(list) {
 }
 
 // return a dictionary mocking the data processed after receiving from the database
-function mockDatabase(num, listAmt, info, month) {
+function mockDatabase(num, listAmt, info, week) {
   // mocking the database
   var data = [];
   for (var i = 0; i < num; i++) {
     //month.setDate(month.getDate() + (Math.random() % 28)).toString()
-    var tempMonth = new Date(month);
-    var randDate = tempMonth.setDate(tempMonth.getDate() + RndInt(1, 27));
+    var tempWeek = new Date(week);
+    var randDate = tempWeek.setDate(tempWeek.getDate() + RndInt(1, 6));
     const newData = new Object({
       salesId: String(i), 
       stockInfo: info,
@@ -45,130 +45,130 @@ function mockDatabase(num, listAmt, info, month) {
 }
 
 
-test('database with only one product from the same month', () => {
-  var monthDesired = new Date("2021-02-01");
+test('database with only one product from the same week', () => {
+  var weekDesired = new Date("2021-02-01");
   var listAmt = RndList(10);
   var total = SumOfList(listAmt);
-  var data = mockDatabase(10, listAmt, "Panadol", monthDesired);
+  var data = mockDatabase(10, listAmt, "Panadol", weekDesired);
   
   var expectedResult = {Panadol: total};
 
-  expect(processData(data, monthDesired)).toStrictEqual(expectedResult);
+  expect(processData(data, weekDesired)).toStrictEqual(expectedResult);
 });
 
 
-test('database with only one product from different months', () => {
+test('database with only one product from different weeks', () => {
   // Any group of entries using monthDesired must be part of the final dictionary
-  var monthDesired = new Date("2021-03-01");
+  var weekDesired = new Date("2021-02-08");
 
-  var month1 = new Date("2021-02-01");
+  var week1 = new Date("2021-02-01");
   var listAmt1 = RndList(10);
   var total1 = SumOfList(listAmt1);
-  var data1 = mockDatabase(10, listAmt1, "Panadol", month1);
+  var data1 = mockDatabase(10, listAmt1, "Panadol", week1);
 
   var listAmt2 = RndList(10);
   var total2 = SumOfList(listAmt2);
-  var data2 = mockDatabase(10, listAmt2, "Panadol", monthDesired);
+  var data2 = mockDatabase(10, listAmt2, "Panadol", weekDesired);
 
   var data = data1.concat(data2);
 
   var expectedResult = {Panadol: total2};
  
-  expect(processData(data, monthDesired)).toStrictEqual(expectedResult);
+  expect(processData(data, weekDesired)).toStrictEqual(expectedResult);
 });
 
 
-test('database with multiple products from the same month', () => {
-  var monthDesired = new Date("2021-02-01");
+test('database with multiple products from the same week', () => {
+  var weekDesired = new Date("2021-02-01");
 
   var listAmt1 = RndList(10);
   var total1 = SumOfList(listAmt1);
-  var data1 = mockDatabase(10, listAmt1, "Panadol", monthDesired);
+  var data1 = mockDatabase(10, listAmt1, "Panadol", weekDesired);
 
   var listAmt2 = RndList(5);
   var total2 = SumOfList(listAmt2);
-  var data2 = mockDatabase(5, listAmt2, "Ibuprofen", monthDesired);
+  var data2 = mockDatabase(5, listAmt2, "Ibuprofen", weekDesired);
 
   var data = data1.concat(data2);
 
   var expectedResult = {Panadol: total1, Ibuprofen: total2};
 
-  expect(processData(data, monthDesired)).toStrictEqual(expectedResult);
+  expect(processData(data, weekDesired)).toStrictEqual(expectedResult);
 });
 
 
-test('database with only multiple products from different months', () => {
-  var monthDesired = new Date("2021-02-01");
+test('database with only multiple products from different weeks', () => {
+  var weekDesired = new Date("2021-02-01");
 
   var listAmt1 = RndList(10);
   var total1 = SumOfList(listAmt1);
-  var data1 = mockDatabase(10, listAmt1, "Panadol", monthDesired);
+  var data1 = mockDatabase(10, listAmt1, "Panadol", weekDesired);
 
-  var month2 = new Date("2021-03-01");
+  var week2 = new Date("2021-03-01");
   var listAmt2 = RndList(5);
   var total2 = SumOfList(listAmt2);
-  var data2 = mockDatabase(5, listAmt2, "Ibuprofen", month2);
+  var data2 = mockDatabase(5, listAmt2, "Ibuprofen", week2);
 
   var data = data1.concat(data2);
 
   var expectedResult = {Panadol: total1};
 
-  expect(processData(data, monthDesired)).toStrictEqual(expectedResult);
+  expect(processData(data, weekDesired)).toStrictEqual(expectedResult);
 });
 
 
-test('database with multiple products from multiple months with some being on the same month', () => {
-  var monthDesired = new Date("2021-02-01");
+test('database with multiple products from multiple weeks with some being on the same week', () => {
+  var weekDesired = new Date("2021-02-01");
 
   var listAmt1 = RndList(10);
   var total1 = SumOfList(listAmt1);
-  var data1 = mockDatabase(10, listAmt1, "Panadol", monthDesired);
+  var data1 = mockDatabase(10, listAmt1, "Panadol", weekDesired);
 
-  var month2 = new Date("2021-03-01");
+  var week2 = new Date("2021-02-08");
   var listAmt2 = RndList(10);
   var total2 = SumOfList(listAmt2);
-  var data2 = mockDatabase(10, listAmt2, "Ibuprofen", month2);
+  var data2 = mockDatabase(10, listAmt2, "Ibuprofen", week2);
 
   var listAmt3 = RndList(3);
   var total3 = SumOfList(listAmt3);
-  var data3 = mockDatabase(3, listAmt3, "Tylenol", monthDesired);
+  var data3 = mockDatabase(3, listAmt3, "Tylenol", weekDesired);
 
   var data = data1.concat(data2).concat(data3);
 
   var expectedResult = {Panadol: total1, Tylenol: total3};
 
-  expect(processData(data, monthDesired)).toStrictEqual(expectedResult);
+  expect(processData(data, weekDesired)).toStrictEqual(expectedResult);
 });
 
 
-test('database with multiple products from multiple months with mixed data', () => {
-  var monthDesired = new Date("2021-02-01");
+test('database with multiple products from multiple weeks with mixed data', () => {
+  var weekDesired = new Date("2021-02-01");
 
   var listAmt1 = RndList(10);
   var total1 = SumOfList(listAmt1);
-  var data1 = mockDatabase(10, listAmt1, "Panadol", monthDesired);
+  var data1 = mockDatabase(10, listAmt1, "Panadol", weekDesired);
 
-  var month2 = new Date("2021-03-01");
+  var week2 = new Date("2021-02-08");
   var listAmt2 = RndList(10);
   var total2 = SumOfList(listAmt2);
-  var data2 = mockDatabase(10, listAmt2, "Ibuprofen", month2);
+  var data2 = mockDatabase(10, listAmt2, "Ibuprofen", week2);
 
   var listAmt3 = RndList(3);
   var total3 = SumOfList(listAmt3);
-  var data3 = mockDatabase(3, listAmt3, "Tylenol", monthDesired);
+  var data3 = mockDatabase(3, listAmt3, "Tylenol", weekDesired);
 
   var listAmt4 = RndList(10);
   var total4 = SumOfList(listAmt4);
-  var data4 = mockDatabase(10, listAmt4, "Panadol", monthDesired);
+  var data4 = mockDatabase(10, listAmt4, "Panadol", weekDesired);
 
-  var month5 = new Date("2021-04-01");
+  var week5 = new Date("2021-02-15");
   var listAmt5 = RndList(10);
   var total5 = SumOfList(listAmt5);
-  var data5 = mockDatabase(10, listAmt5, "Panadol", month5);
+  var data5 = mockDatabase(10, listAmt5, "Panadol", week5);
 
   var data = data1.concat(data2).concat(data3).concat(data4).concat(data5);
 
   var expectedResult = {Panadol: total1 + total4, Tylenol: total3};
 
-  expect(processData(data, monthDesired)).toStrictEqual(expectedResult);
+  expect(processData(data, weekDesired)).toStrictEqual(expectedResult);
 });
