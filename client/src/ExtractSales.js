@@ -12,7 +12,7 @@ function App(startDay) {
             lastDate.setMonth(lastDate.getMonth() + 6);
             const curDate = Date.parse(r.stockDate);
 
-            if (curDate <= lastDate && curDate >= startDate) {
+            if (curDate < lastDate && curDate >= startDate) {
                 if (dict[r.stockInfo] === undefined) {
                     dict[r.stockInfo] = Number(r.stockAmt);
                 }

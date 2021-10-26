@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import './App.css';
 import MaterialTable from 'material-table';
+import { processData } from "./testFunc";
+
 
 function App() {
     const[reportList, setReportList] = useState([]);
@@ -19,26 +21,12 @@ function App() {
         setDates(dateList);
 
         // get total stock of starting week for each product
-        for (const r of res) {
-        const startDate = Date.parse(startWeek);
-        var lastDate = new Date(startDate);
-        lastDate.setMonth(lastDate.getMonth() + 6);
-        const curDate = Date.parse(r.stockDate);
-
-        if (curDate <= lastDate && curDate >= startDate) {
-            if (dict[r.stockInfo] === undefined) {
-            dict[r.stockInfo] = Number(r.stockAmt);
-            }
-            else {
-            dict[r.stockInfo] = Number(dict[r.stockInfo]) + Number(r.stockAmt);
-            }
-        }
-        }
+        dict = processData(res, startWeek);
         
         // make a list
         for (const [key, value] of Object.entries(dict)) {
-        let finalList = {info: key, amount: value};
-        list.push(finalList);
+            let finalList = {info: key, amount: value};
+            list.push(finalList);
         }
         setReportList(list);
         })
